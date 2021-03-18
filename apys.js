@@ -2,18 +2,18 @@
 const coins = [
   {
     pid: 0,
-    lpAddresses: '0x3121A195330f8B3C6a006145FFD7F20c4c398134', // 质押币地址 lpAddresses 统一用来查询余额，lp的话填写lp地址，单币的填币种地址
-    tokenAddresses: '0x2103c8E3C6aea0067F61337f8548f3B8a1653D1c', // tokenAddresses,单币的话不需要，lp填要获取价格的币种地址
-    symbol: 'MDX/USDT',
+    lpAddresses: '0x12Fc541d35f9F040C9C6233988144DFa5EB0986A', // 质押币地址 lpAddresses 统一用来查询余额，lp的话填写lp地址，单币的填币种地址
+    tokenAddresses: '0x86936B61b490D2608F57A0b53aDE3eeF4cbD3EF9', // tokenAddresses,单币的话不需要，lp填要获取价格的币种地址
+    symbol: 'STAR/USDT',
     islp: true
   },
-  {
-    pid: 0,
-    lpAddresses: '0x4164D61787eC20c7d46824aADFBc64EFF2BAF7d0', // lpAddresses 统一用来查询余额，lp的话填写lp地址，单币的填币种地址
-    tokenAddresses: '0xd580f978c1F6Df02384f439662c7214f83cCcCf1', // tokenAddresses,单币的话不需要，lp填要获取价格的币种地址
-    symbol: 'WOKT/USDT',
-    islp: true
-  },
+  // {
+  //   pid: 1,
+  //   lpAddresses: '0x4164D61787eC20c7d46824aADFBc64EFF2BAF7d0', // lpAddresses 统一用来查询余额，lp的话填写lp地址，单币的填币种地址
+  //   tokenAddresses: '0xd580f978c1F6Df02384f439662c7214f83cCcCf1', // tokenAddresses,单币的话不需要，lp填要获取价格的币种地址
+  //   symbol: 'WOKT/USDT',
+  //   islp: true
+  // },
 ]
 const hecoAddress = 'http://127.0.0.1:26659'
 
@@ -23,10 +23,10 @@ const FileSync = require('lowdb/adapters/FileSync')
 const adapter = new FileSync('./apy.json')
 const db = low(adapter)
 //address
-const oracleAddress = '0x1f0a6390B1D4cA8c4d89adEAC9Bb13efE017C558'
-const usdtAddress = '0x550FB60524bc6115108289E1048757B81688e362'
-const chefAddress = '0xBB38a2616A19bA08D45966e55e5774A7476d2951'
-const mdxAddress = '0x2103c8E3C6aea0067F61337f8548f3B8a1653D1c'
+const oracleAddress = '0x13Cfb993e03c9B89D437f2241D03eb6CA5de8ce2'
+const usdtAddress = '0xe579156f9dEcc4134B5E3A30a24Ac46BB8B01281'
+const chefAddress = '0x21eB9C39C4be10c6008AE13F2E25573dE2C10d41'
+const mdxAddress = '0x86936B61b490D2608F57A0b53aDE3eeF4cbD3EF9'
 //abi
 const erc20Abi = require('./abi/erc20.json')
 const oracleAbi = require('./abi/oracle.json')
