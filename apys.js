@@ -115,9 +115,9 @@ const getCoinsInfo = async() => {
     }
     const apy = mdxPrice/1e+18*SUSHI_PER_BLOCK*BLOCKS_PER_YEAR*res.poolWeight/res.totalUsdtValue*100
     if(coin.islp) {
-      db.get('lps').push({...res, symbol: coin.symbol, apy, lpAddresses:coin.lpAddresses}).write()
+      db.get('lps').push({...res, symbol: coin.symbol, apy, lpAddresses:coin.lpAddresses, pid:coin.pid}).write()
     } else {
-      db.get('single').push({...res, symbol: coin.symbol, apy, lpAddresses:coin.lpAddresses}).write()
+      db.get('single').push({...res, symbol: coin.symbol, apy, lpAddresses:coin.lpAddresses, pid:coin.pid}).write()
     }
   }
 }
