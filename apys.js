@@ -31,6 +31,7 @@ const mdxAddress = '0x86936B61b490D2608F57A0b53aDE3eeF4cbD3EF9'
 const erc20Abi = require('./abi/erc20.json')
 const oracleAbi = require('./abi/oracle.json')
 const chefAbi = require('./abi/masterchef.json')
+const pairAbi = require('./abi/pair.json')
 // contract
 const provider = new web3(hecoAddress)
 const orcalContract = new provider.eth.Contract(oracleAbi, oracleAddress)
@@ -73,7 +74,7 @@ const calculateCoin = async(lpAddresses, tokenSymbol, pid) => {
 }
 
 const calculateLp = async(lpAddresses, tokenAddresses, tokenSymbol, pid) => {
-  const currentTokenContract = new provider.eth.Contract(erc20Abi, lpAddresses)
+  const currentTokenContract = new provider.eth.Contract(pairAbi, lpAddresses)
   const currentLpContract = new provider.eth.Contract(erc20Abi, tokenAddresses)
   const totalSupply = await currentTokenContract.methods.totalSupply().call()
   console.log('lp totalSupply:', totalSupply)
@@ -96,7 +97,7 @@ const calculateLp = async(lpAddresses, tokenAddresses, tokenSymbol, pid) => {
   const totalAmount = tokenAmount*portionLp/Math.pow(10, decimal)
   const poolWeight = await getPoolWeight(pid)
   const token0addr = await currentTokenContract.methods.token0().call()
-  const token1addr = await currentTokenContract.methods.token0().call()
+  const token1addr = await currentTokenContract.methods.token1().call()
   return {
       totalUsdtValue: totalAmount*price/Math.pow(10, 18)*2,
       tokenPriceInUsdt: price/Math.pow(10, 18),
