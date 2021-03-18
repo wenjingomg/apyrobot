@@ -95,10 +95,14 @@ const calculateLp = async(lpAddresses, tokenAddresses, tokenSymbol, pid) => {
   //质押池(BTC)总币数
   const totalAmount = tokenAmount*portionLp/Math.pow(10, decimal)
   const poolWeight = await getPoolWeight(pid)
+  const token0addr = await currentTokenContract.methods.token0().call()
+  const token1addr = await currentTokenContract.methods.token0().call()
   return {
       totalUsdtValue: totalAmount*price/Math.pow(10, 18)*2,
       tokenPriceInUsdt: price/Math.pow(10, 18),
-      poolWeight
+      poolWeight,
+      token0addr,
+      token1addr
     }
 }
 
