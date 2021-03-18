@@ -76,10 +76,10 @@ const calculateLp = async(lpAddresses, tokenAddresses, tokenSymbol, pid) => {
   const currentTokenContract = new provider.eth.Contract(erc20Abi, lpAddresses)
   const currentLpContract = new provider.eth.Contract(erc20Abi, tokenAddresses)
   const totalSupply = await currentTokenContract.methods.totalSupply().call()
-  console.log('lp totalSupply:', tokenAmount)
+  console.log('lp totalSupply:', totalSupply)
   // chef的总量
   const balance = await currentTokenContract.methods.balanceOf(chefAddress).call()
-  console.log('lp stake count:', tokenAmount)
+  console.log('lp stake count:', balance)
   const decimal = await currentLpContract.methods.decimals().call()
   let price = 0
   try {
