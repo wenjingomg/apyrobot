@@ -76,8 +76,10 @@ const calculateLp = async(lpAddresses, tokenAddresses, tokenSymbol, pid) => {
   const currentTokenContract = new provider.eth.Contract(erc20Abi, lpAddresses)
   const currentLpContract = new provider.eth.Contract(erc20Abi, tokenAddresses)
   const totalSupply = await currentTokenContract.methods.totalSupply().call()
+  console.log('lp totalSupply:', tokenAmount)
   // chef的总量
   const balance = await currentTokenContract.methods.balanceOf(chefAddress).call()
+  console.log('lp stake count:', tokenAmount)
   const decimal = await currentLpContract.methods.decimals().call()
   let price = 0
   try {
@@ -87,6 +89,7 @@ const calculateLp = async(lpAddresses, tokenAddresses, tokenSymbol, pid) => {
   }
   //swap pair (BTC)总币数
   const tokenAmount = await currentLpContract.methods.balanceOf(currentTokenContract.options.address).call()
+  console.log('tokenAmount:', tokenAmount)
   //质押池在swap pair的份额
   const portionLp = balance/totalSupply
   //质押池(BTC)总币数
