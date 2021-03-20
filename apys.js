@@ -294,7 +294,7 @@ const getMiningPoolInfo = async() => {
       total_quantity:poolInfo[3],
       pool_quantity:poolInfo[4],
       alloc_point:poolInfo[5],
-      apy, symbol0:tokens[token0]
+      apy, symbol0:tokens[token0], symbol1: tokens[token1]
     }).write()
   
   }
