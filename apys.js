@@ -27,11 +27,32 @@ const oracleAddress = '0x13Cfb993e03c9B89D437f2241D03eb6CA5de8ce2'
 const usdtAddress = '0xe579156f9dEcc4134B5E3A30a24Ac46BB8B01281'
 const chefAddress = '0x21eB9C39C4be10c6008AE13F2E25573dE2C10d41'
 const mdxAddress = '0x86936B61b490D2608F57A0b53aDE3eeF4cbD3EF9'
+const mingingPoolAddress = "0xe5B876BDbfAf8e4E317cEE76889b03eb60a05E99"
+
+const tokens = {
+  // '0x0298c2b32eaE4da002a15f36fdf7615BEa3DA047': 'HUSD',
+  // '0x5545153CCFcA01fbd7Dd11C0b23ba694D9509A6F': 'HT',
+  // '0x64FF637fB478863B7468bc97D30a5bF3A428a1fD': 'ETH',
+  // '0xa71EdC38d189767582C38A3145b5873052c3e47a': 'USDT',
+  // '0x66a79D23E58475D2738179Ca52cd0b41d73f0BEa': 'HBTC',
+  // '0x25D2e80cB6B86881Fd7e07dd263Fb79f4AbE033c': 'MDX',
+  // '0xa042fb0e60125A4022670014AC121931e7501Af4': 'BAG',
+  // '0xA2c49cEe16a5E5bDEFDe931107dc1fae9f7773E3': 'HDOT',
+  // '0xecb56cf772B5c9A6907FB7d32387Da2fCbfB63b4': 'HLTC',
+  // '0xeF3CEBD77E0C52cb6f60875d9306397B5Caca375': 'HBCH',
+  // "0xE499Ef4616993730CEd0f31FA2703B92B50bB536": "HPT",
+  // '0xae3a768f9aB104c69A7CD6041fE16fFa235d1810': 'HFIL',
+  // '0x202b4936fE1a82A4965220860aE46d7d3939Bb25': 'AAVE',
+  // '0x777850281719d5a96C29812ab72f822E0e09F3Da': 'SNX',
+  // '0x22C54cE8321A4015740eE1109D9cBc25815C46E6': 'UNI',
+}
+
 //abi
 const erc20Abi = require('./abi/erc20.json')
 const oracleAbi = require('./abi/oracle.json')
 const chefAbi = require('./abi/masterchef.json')
 const pairAbi = require('./abi/pair.json')
+
 // contract
 const provider = new web3(hecoAddress)
 const orcalContract = new provider.eth.Contract(oracleAbi, oracleAddress)
@@ -126,30 +147,14 @@ const getCoinsInfo = async() => {
     }
   }
 }
-getCoinsInfo()
+// getCoinsInfo()
 
 
 //
 const axios = require('axios')
 const API_URL = 'https://api.mdex.com'
 const moment = require('moment'); // require
-const tokens = {
-  '0x0298c2b32eaE4da002a15f36fdf7615BEa3DA047': 'HUSD',
-  '0x5545153CCFcA01fbd7Dd11C0b23ba694D9509A6F': 'HT',
-  '0x64FF637fB478863B7468bc97D30a5bF3A428a1fD': 'ETH',
-  '0xa71EdC38d189767582C38A3145b5873052c3e47a': 'USDT',
-  '0x66a79D23E58475D2738179Ca52cd0b41d73f0BEa': 'HBTC',
-  '0x25D2e80cB6B86881Fd7e07dd263Fb79f4AbE033c': 'MDX',
-  '0xa042fb0e60125A4022670014AC121931e7501Af4': 'BAG',
-  '0xA2c49cEe16a5E5bDEFDe931107dc1fae9f7773E3': 'HDOT',
-  '0xecb56cf772B5c9A6907FB7d32387Da2fCbfB63b4': 'HLTC',
-  '0xeF3CEBD77E0C52cb6f60875d9306397B5Caca375': 'HBCH',
-  "0xE499Ef4616993730CEd0f31FA2703B92B50bB536": "HPT",
-  '0xae3a768f9aB104c69A7CD6041fE16fFa235d1810': 'HFIL',
-  '0x202b4936fE1a82A4965220860aE46d7d3939Bb25': 'AAVE',
-  '0x777850281719d5a96C29812ab72f822E0e09F3Da': 'SNX',
-  '0x22C54cE8321A4015740eE1109D9cBc25815C46E6': 'UNI',
-}
+
 const getApy = async() => {
   const list = await axios.get(`${API_URL}/pool/list`)
   const apys = await axios.get(`${API_URL}/pool/apys`)
@@ -163,3 +168,17 @@ const getApy = async() => {
   }
 }
 // getApy()
+
+const mingingAbi = require('./abi/miningpool.json')
+const getMiningPoolInfo = async() => {
+  const miningPoolContract = new provider.eth.Contract(mingingAbi, mingingPoolAddress)
+  const poolLength = await miningPoolContract.methods.poolLength().call()
+  for (i =0; i< poolLength; i++) {
+    var poolInfo = await miningPoolContract.methods.getPoolInfo(i).call();
+    console.log(poolInfo)
+
+
+  }
+  
+}
+getMiningPoolInfo()
