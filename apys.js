@@ -172,6 +172,7 @@ const getApy = async() => {
 const mingingAbi = require('./abi/miningpool.json')
 const MINING_REWARD_PER_BLOCK = 27.3 //TODO
 const getMiningPoolInfo = async() => {
+  const mdxPrice = await orcalContract.methods.consult(mdxAddress, String(Math.pow(10, 18)), usdtAddress).call()
   const miningPoolContract = new provider.eth.Contract(mingingAbi, mingingPoolAddress)
   const poolLength = await miningPoolContract.methods.poolLength().call()
   const totalAllocPoint = await miningPoolContract.methods.totalAllocPoint().call()
