@@ -174,8 +174,9 @@ const getMiningPoolInfo = async() => {
   const miningPoolContract = new provider.eth.Contract(mingingAbi, mingingPoolAddress)
   const poolLength = await miningPoolContract.methods.poolLength().call()
   for (i =0; i< poolLength; i++) {
-    var poolInfo = await miningPoolContract.methods.getPoolInfo(i).call();
-    console.log(poolInfo)
+    {token0, token1, xtamount,totalQuantity,quantity, allocPoint} poolInfo = await miningPoolContract.methods.getPoolInfo(i).call();
+    console.log(poolInfo.token0)
+    
 
 
   }
