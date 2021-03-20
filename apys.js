@@ -2,18 +2,116 @@
 const coins = [
   {
     pid: 0,
-    lpAddresses: '0x12Fc541d35f9F040C9C6233988144DFa5EB0986A', // 质押币地址 lpAddresses 统一用来查询余额，lp的话填写lp地址，单币的填币种地址
-    tokenAddresses: '0x86936B61b490D2608F57A0b53aDE3eeF4cbD3EF9', // tokenAddresses,单币的话不需要，lp填要获取价格的币种地址
-    symbol: 'STAR/USDT',
+    lpAddresses: '0x172a378B1aB64333bE2faa54C96476E5389F30AB', // 质押币地址 lpAddresses 统一用来查询余额，lp的话填写lp地址，单币的填币种地址
+    tokenAddresses: '0xE5e399B4D0b721bD0B616E076e07E4416B78AA3E', // tokenAddresses,单币的话不需要，lp填要获取价格的币种地址
+    symbol: 'XT/USDT',
     islp: true
   },
-  // {
-  //   pid: 1,
-  //   lpAddresses: '0x4164D61787eC20c7d46824aADFBc64EFF2BAF7d0', // lpAddresses 统一用来查询余额，lp的话填写lp地址，单币的填币种地址
-  //   tokenAddresses: '0xd580f978c1F6Df02384f439662c7214f83cCcCf1', // tokenAddresses,单币的话不需要，lp填要获取价格的币种地址
-  //   symbol: 'WOKT/USDT',
-  //   islp: true
-  // },
+  {
+    pid: 1,
+    lpAddresses: '0x7B9A93174fC97d8CC42A632676C270FB25b80510', 
+    tokenAddresses: '0xE5e399B4D0b721bD0B616E076e07E4416B78AA3E', 
+    symbol: 'XT/BTCK',
+    islp: true
+  },
+  {
+    pid: 2,
+    lpAddresses: '0x95c89c8F0506C1410F310b09B37D9cC1b5417BF9', 
+    tokenAddresses: '0xE5e399B4D0b721bD0B616E076e07E4416B78AA3E', 
+    symbol: 'XT/OKB',
+    islp: true
+  },
+  {
+    pid: 3,
+    lpAddresses: '0xBd99824eB6DaaeC752151B75D1FD451F17A07434', 
+    tokenAddresses: '0xE5e399B4D0b721bD0B616E076e07E4416B78AA3E', 
+    symbol: 'XT/ETHK',
+    islp: true
+  },
+  {
+    pid: 4,
+    lpAddresses: '0x554b9D5F5895a06E626527298A1634F82B330395', 
+    tokenAddresses: '0xE5e399B4D0b721bD0B616E076e07E4416B78AA3E', 
+    symbol: 'XT/OKT',
+    islp: true
+  },
+  {
+    pid: 5,
+    lpAddresses: '0x48048fd8Fb1dD3Eb62BFB62cC21da359817AfaCD', 
+    tokenAddresses: '0x09973e7e3914EB5BA69C7c025F30ab9446e3e4e0', 
+    symbol: 'BTCK/USDT',
+    islp: true
+  },
+  {
+    pid: 6,
+    lpAddresses: '0x41a7bf2CB1fe7FE6e718acc31C387a24f354C92F', 
+    tokenAddresses: '0xDF950cEcF33E64176ada5dD733E170a56d11478E', 
+    symbol: 'ETHK/USDT',
+    islp: true
+  },
+  {
+    pid: 7,
+    lpAddresses: '0x6A8ed8f4aF0E80a4787018F7f20F8b90A4b62DB8', 
+    tokenAddresses: '0xDa9d14072Ef2262c64240Da3A93fea2279253611', 
+    symbol: 'OKB/USDT',
+    islp: true
+  },
+  {
+    pid: 8,
+    lpAddresses: '0xF23E58F225E8Fb53fD8a564EC1A4D5D067025424', 
+    tokenAddresses: '0xDa9d14072Ef2262c64240Da3A93fea2279253611', 
+    symbol: 'OKB/ETHK',
+    islp: true
+  },
+  {
+    pid: 9,
+    lpAddresses: '0xFd772dc34f78CAe86F4b66E3531249a794e102be', 
+    tokenAddresses: '0xDa9d14072Ef2262c64240Da3A93fea2279253611', 
+    symbol: 'OKB/BTCK',
+    islp: true
+  },
+  {
+    pid: 10,
+    lpAddresses: '0x41439203945ef755CC53E0719e1C4eC0b01CF7F3', 
+    tokenAddresses: '0xDa9d14072Ef2262c64240Da3A93fea2279253611', 
+    symbol: 'OKB/OKT',
+    islp: true
+  },
+  {
+    pid: 11,
+    lpAddresses: '0x2763233Cd2CA4A886b75047fE05663b45C985eb7', 
+    tokenAddresses: '0x70c1c53E991F31981d592C2d865383AC0d212225', 
+    symbol: 'OKT/USDT ',
+    islp: true
+  },
+  {
+    pid: 12,
+    lpAddresses: '0x82F93401F603AFf80DF19A3EAd5D500dDA362213', 
+    tokenAddresses: '0x70c1c53E991F31981d592C2d865383AC0d212225', 
+    symbol: 'OKT/ETHK',
+    islp: true
+  },
+  {
+    pid: 13,
+    lpAddresses: '0x5562dAF6F0bd0ed651Df008416D6C114E83e8221', 
+    tokenAddresses: '0x70c1c53E991F31981d592C2d865383AC0d212225', 
+    symbol: 'OKT/BTCK',
+    islp: true
+  },
+  {
+    pid: 14,
+    lpAddresses: '0xE5e399B4D0b721bD0B616E076e07E4416B78AA3E', 
+    tokenAddresses: '0xE5e399B4D0b721bD0B616E076e07E4416B78AA3E', 
+    symbol: 'XT',
+    islp: false
+  },
+  {
+    pid: 15,
+    lpAddresses: '0xe579156f9dEcc4134B5E3A30a24Ac46BB8B01281', 
+    tokenAddresses: '0xe579156f9dEcc4134B5E3A30a24Ac46BB8B01281', 
+    symbol: 'USDT',
+    islp: true
+  }
 ]
 const hecoAddress = 'http://127.0.0.1:26659'
 
@@ -23,10 +121,10 @@ const FileSync = require('lowdb/adapters/FileSync')
 const adapter = new FileSync('./apy.json')
 const db = low(adapter)
 //address
-const oracleAddress = '0x13Cfb993e03c9B89D437f2241D03eb6CA5de8ce2'
+const oracleAddress = '0x2619a22B1e399c473cC9A3C02FcEC826679F8D00'
 const usdtAddress = '0xe579156f9dEcc4134B5E3A30a24Ac46BB8B01281'
-const chefAddress = '0x21eB9C39C4be10c6008AE13F2E25573dE2C10d41'
-const mdxAddress = '0x86936B61b490D2608F57A0b53aDE3eeF4cbD3EF9'
+const chefAddress = '0x1D256cFE65cBd73dF6a9bE499a4b3486a31D807E'
+const mdxAddress = '0xE5e399B4D0b721bD0B616E076e07E4416B78AA3E'
 const mingingPoolAddress = "0xe5B876BDbfAf8e4E317cEE76889b03eb60a05E99"
 
 const tokens = {
