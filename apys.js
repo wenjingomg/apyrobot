@@ -180,7 +180,7 @@ const getMiningPoolInfo = async() => {
   for (i =0; i< poolLength; i++) {
     // {token0, token1, xtamount,totalQuantity,quantity, allocPoint} 
     var poolInfo = await miningPoolContract.methods.getPoolInfo(i).call();
-    const poolWeight = poolInfo[5]/totalAllocPoint,
+    const poolWeight = poolInfo[5]/totalAllocPoint
     const token0 = poolInfo[0]
     const token1 = poolInfo[1]
     const apy = mdxPrice/1e+18*MINING_REWARD_PER_BLOCK*BLOCKS_PER_YEAR*poolWeight/(0.003*poolInfo[4])*100
