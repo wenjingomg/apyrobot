@@ -40,7 +40,7 @@ const tokens = {
   '0xf6a0Dc1fD1d2c0122ab075d7ef93aD79F02CcB93': 'FILK',
   '0xd616388f6533B6f1c31968a305FbEE1727F55850': 'LTCK',
   '0x70c1c53E991F31981d592C2d865383AC0d212225': 'WOKT',
-  // "0xE499Ef4616993730CEd0f31FA2703B92B50bB536": "HPT",
+  "0xE5e399B4D0b721bD0B616E076e07E4416B78AA3E": "XT",
   // '0xae3a768f9aB104c69A7CD6041fE16fFa235d1810': 'HFIL',
   // '0x202b4936fE1a82A4965220860aE46d7d3939Bb25': 'AAVE',
   // '0x777850281719d5a96C29812ab72f822E0e09F3Da': 'SNX',
@@ -187,7 +187,7 @@ const getMiningPoolInfo = async() => {
     const apy = mdxPrice/1e+18*MINING_REWARD_PER_BLOCK*BLOCKS_PER_YEAR*poolWeight/(0.003*poolInfo[4])*100
 
     db.get('minging').push({
-      id:i+1, symbol1:tokens[token1], 
+      id:i+1, 
       pool_id: i, 
       poolWeight,
       token0, 
