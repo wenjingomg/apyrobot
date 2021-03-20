@@ -245,7 +245,7 @@ const getCoinsInfo = async() => {
     }
   }
 }
-// getCoinsInfo()
+getCoinsInfo()
 
 
 //
