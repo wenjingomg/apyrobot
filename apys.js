@@ -187,7 +187,7 @@ const getMiningPoolInfo = async() => {
     const apy = mdxPrice/1e+18*MINING_REWARD_PER_BLOCK*BLOCKS_PER_YEAR*poolWeight/(0.003*poolInfo[4])*100
 
     db.get('minging').push({
-      id:i+1, 
+      id:i+1, symbol1:tokens[token1], 
       pool_id: i, 
       poolWeight,
       token0, 
@@ -196,7 +196,7 @@ const getMiningPoolInfo = async() => {
       total_quantity:poolInfo[3],
       pool_quantity:poolInfo[4],
       alloc_point:poolInfo[5],
-      apy, symbol0:tokens[token0], symbol1:tokens[token1]
+      apy, symbol0:tokens[token0]
     }).write()
   
   }
