@@ -290,7 +290,7 @@ const getMiningPoolInfo = async() => {
       poolWeight,
       token0, 
       token1, 
-      alloc_mdx_amt:poolInfo[2],
+      alloc_mdx_amt:poolInfo[2]/Math.pow(10, 18),
       total_quantity:poolInfo[3],
       pool_quantity:poolInfo[4],
       alloc_point:poolInfo[5],
