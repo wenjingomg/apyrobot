@@ -217,9 +217,11 @@ const calculateLp = async(lpAddresses, tokenAddresses, tokenSymbol, pid) => {
   const poolWeight = await getPoolWeight(pid)
   const token0addr = await currentTokenContract.methods.token0().call()
   const token1addr = await currentTokenContract.methods.token1().call()
+  const totalUsdtValue= totalAmount*price/Math.pow(10, 18)*2
   return {
-      totalUsdtValue: totalAmount*price/Math.pow(10, 18)*2,
+      totalUsdtValue,
       tokenPriceInUsdt: price/Math.pow(10, 18),
+      lpPrice: totalUsdtValue/totalSupply,
       poolWeight,
       token0addr,
       token1addr
