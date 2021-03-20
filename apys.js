@@ -110,7 +110,7 @@ const coins = [
     lpAddresses: '0xe579156f9dEcc4134B5E3A30a24Ac46BB8B01281', 
     tokenAddresses: '0xe579156f9dEcc4134B5E3A30a24Ac46BB8B01281', 
     symbol: 'USDT',
-    islp: true
+    islp: false
   }
 ]
 const hecoAddress = 'http://127.0.0.1:26659'
