@@ -30,16 +30,16 @@ const mdxAddress = '0x86936B61b490D2608F57A0b53aDE3eeF4cbD3EF9'
 const mingingPoolAddress = "0xe5B876BDbfAf8e4E317cEE76889b03eb60a05E99"
 
 const tokens = {
-  // '0x0298c2b32eaE4da002a15f36fdf7615BEa3DA047': 'HUSD',
-  // '0x5545153CCFcA01fbd7Dd11C0b23ba694D9509A6F': 'HT',
-  // '0x64FF637fB478863B7468bc97D30a5bF3A428a1fD': 'ETH',
-  // '0xa71EdC38d189767582C38A3145b5873052c3e47a': 'USDT',
-  // '0x66a79D23E58475D2738179Ca52cd0b41d73f0BEa': 'HBTC',
-  // '0x25D2e80cB6B86881Fd7e07dd263Fb79f4AbE033c': 'MDX',
-  // '0xa042fb0e60125A4022670014AC121931e7501Af4': 'BAG',
-  // '0xA2c49cEe16a5E5bDEFDe931107dc1fae9f7773E3': 'HDOT',
-  // '0xecb56cf772B5c9A6907FB7d32387Da2fCbfB63b4': 'HLTC',
-  // '0xeF3CEBD77E0C52cb6f60875d9306397B5Caca375': 'HBCH',
+  '0xDa9d14072Ef2262c64240Da3A93fea2279253611': 'OKB',
+  '0xe579156f9dEcc4134B5E3A30a24Ac46BB8B01281': 'USDT',
+  '0x533367b864D9b9AA59D0DCB6554DF0C89feEF1fF': 'USDK',
+  '0x3e33590013B24bf21D4cCca3a965eA10e570D5B2': 'USDC',
+  '0x09973e7e3914EB5BA69C7c025F30ab9446e3e4e0': 'BTCK',
+  '0xDF950cEcF33E64176ada5dD733E170a56d11478E': 'ETHK',
+  '0x72f8fa5da80dc6e20e00d02724cf05ebd302c35f': 'DOTK',
+  '0xf6a0Dc1fD1d2c0122ab075d7ef93aD79F02CcB93': 'FILK',
+  '0xd616388f6533B6f1c31968a305FbEE1727F55850': 'LTCK',
+  '0x70c1c53E991F31981d592C2d865383AC0d212225': 'WOKT',
   // "0xE499Ef4616993730CEd0f31FA2703B92B50bB536": "HPT",
   // '0xae3a768f9aB104c69A7CD6041fE16fFa235d1810': 'HFIL',
   // '0x202b4936fE1a82A4965220860aE46d7d3939Bb25': 'AAVE',
@@ -58,8 +58,8 @@ const provider = new web3(hecoAddress)
 const orcalContract = new provider.eth.Contract(oracleAbi, oracleAddress)
 const chefContract = new provider.eth.Contract(chefAbi, chefAddress)
 //
-const BLOCKS_PER_YEAR = 10512000
-const SUSHI_PER_BLOCK = 27.3
+const BLOCKS_PER_YEAR = 10512000 //TODO
+const SUSHI_PER_BLOCK = 27.3  //TODO
 
 const getPoolWeight = async (pid) => {
   const { allocPoint } = await chefContract.methods.poolInfo(pid).call();
@@ -170,15 +170,34 @@ const getApy = async() => {
 // getApy()
 
 const mingingAbi = require('./abi/miningpool.json')
+const MINING_REWARD_PER_BLOCK = 27.3 //TODO
 const getMiningPoolInfo = async() => {
   const miningPoolContract = new provider.eth.Contract(mingingAbi, mingingPoolAddress)
   const poolLength = await miningPoolContract.methods.poolLength().call()
+  const totalAllocPoint = await miningPoolContract.methods.totalAllocPoint().call()
+
+  db.set('minging', []).write()
   for (i =0; i< poolLength; i++) {
-    {token0, token1, xtamount,totalQuantity,quantity, allocPoint} poolInfo = await miningPoolContract.methods.getPoolInfo(i).call();
-    console.log(poolInfo.token0)
-    
+    // {token0, token1, xtamount,totalQuantity,quantity, allocPoint} 
+    var poolInfo = await miningPoolContract.methods.getPoolInfo(i).call();
+    const poolWeight = poolInfo[5]/totalAllocPoint,
+    const token0 = poolInfo[0]
+    const token1 = poolInfo[1]
+    const apy = mdxPrice/1e+18*MINING_REWARD_PER_BLOCK*BLOCKS_PER_YEAR*poolWeight/(0.003*poolInfo[4])*100
 
-
+    db.get('minging').push({
+      id:i+1, 
+      pool_id: i, 
+      poolWeight,
+      token0, 
+      token1, 
+      alloc_mdx_amt:poolInfo[2],
+      total_quantity:poolInfo[3],
+      pool_quantity:poolInfo[4],
+      alloc_point:poolInfo[5],
+      apy, symbol0: tokens[token0], symbol1: tokens[token1]
+    }).write()
+  
   }
   
 }
