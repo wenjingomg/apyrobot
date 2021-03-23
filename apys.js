@@ -1,5 +1,5 @@
-const hecoAddress = 'http://127.0.0.1:8545'
-// const hecoAddress = 'https://exchaintest.okexcn.com'
+// const hecoAddress = 'http://127.0.0.1:8545'
+const hecoAddress = 'https://exchaintest.okexcn.com'
 
 // 类型, 池子， 锁仓/交易额, 日化
 const coins = [
@@ -188,7 +188,6 @@ const calculateCoin = async(lpAddresses, tokenSymbol, pid) => {
     try {
       price = await orcalContract.methods.consult(lpAddresses, String(Math.pow(10, decimal)), usdtAddress).call()
     } catch (error) {
-      console.log(tokenSymbol, 'get price', error)
     }
     return {
       totalUsdtValue: totalValue/Math.pow(10, decimal)*price/Math.pow(10, 18),
