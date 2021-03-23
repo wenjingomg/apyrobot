@@ -109,7 +109,7 @@ const accumulateHrs = (liqAccus, transAmount, transTime, lastTimeStamp) => {
 }
 
 const swapTransHandler = (trans, config) => {
-  if(trans.b)
+  
   const methodId = getTransAgs(trans.input, 0);
   let transAmount = 0
   // addLiquidityETH -- 0xf305d719,
