@@ -1,3 +1,6 @@
+// const hecoAddress = 'http://127.0.0.1:8545'
+const hecoAddress = 'https://exchaintest.okexcn.com'
+
 // 类型, 池子， 锁仓/交易额, 日化
 const coins = [
   {
@@ -113,7 +116,6 @@ const coins = [
     islp: false
   }
 ]
-const hecoAddress = 'http://127.0.0.1:26659'
 
 const web3 = require('web3')
 const low = require('lowdb')
@@ -267,7 +269,7 @@ const getApy = async() => {
     db.set('time', moment(time).utcOffset(8).format('YYYY-MM-DD HH:mm')).write()
   }
 }
-// getApy()
+getApy()
 
 const mingingAbi = require('./abi/miningpool.json')
 const MINING_REWARD_PER_BLOCK = 27.3 //TODO
