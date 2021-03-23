@@ -117,17 +117,13 @@ const coins = [
   }
 ]
 
-const web3 = require('web3')
-const low = require('lowdb')
-const FileSync = require('lowdb/adapters/FileSync')
-const adapter = new FileSync('./apy.json')
-const db = low(adapter)
 //address
 const oracleAddress = '0x2619a22B1e399c473cC9A3C02FcEC826679F8D00'
 const usdtAddress = '0xe579156f9dEcc4134B5E3A30a24Ac46BB8B01281'
 const chefAddress = '0x1D256cFE65cBd73dF6a9bE499a4b3486a31D807E'
 const mdxAddress = '0xE5e399B4D0b721bD0B616E076e07E4416B78AA3E'
 const mingingPoolAddress = "0xe5B876BDbfAf8e4E317cEE76889b03eb60a05E99"
+const USDT_DECIMAL = 10
 
 const tokens = {
   '0xDa9d14072Ef2262c64240Da3A93fea2279253611': 'OKB',
@@ -147,6 +143,16 @@ const tokens = {
   // '0x22C54cE8321A4015740eE1109D9cBc25815C46E6': 'UNI',
 }
 
+//
+const BLOCKS_PER_YEAR = 10512000 //TODO
+const SUSHI_PER_BLOCK = 27.3  //TODO
+
+const web3 = require('web3')
+const low = require('lowdb')
+const FileSync = require('lowdb/adapters/FileSync')
+const adapter = new FileSync('./apy.json')
+const db = low(adapter)
+
 //abi
 const erc20Abi = require('./abi/erc20.json')
 const oracleAbi = require('./abi/oracle.json')
@@ -157,9 +163,7 @@ const pairAbi = require('./abi/pair.json')
 const provider = new web3(hecoAddress)
 const orcalContract = new provider.eth.Contract(oracleAbi, oracleAddress)
 const chefContract = new provider.eth.Contract(chefAbi, chefAddress)
-//
-const BLOCKS_PER_YEAR = 10512000 //TODO
-const SUSHI_PER_BLOCK = 27.3  //TODO
+
 
 const getPoolWeight = async (pid) => {
   const { allocPoint } = await chefContract.methods.poolInfo(pid).call();
@@ -282,8 +286,8 @@ const getMiningPoolInfo = async() => {
       token0, 
       token1, 
       alloc_mdx_amt:poolInfo[2]/Math.pow(10, 18),
-      total_quantity:poolInfo[3],
-      pool_quantity:poolInfo[4],
+      total_quantity:poolInfo[3]/Math.pow(10, USDT_DECIMAL),
+      pool_quantity:poolInfo[4]/Math.pow(10, USDT_DECIMAL),
       alloc_point:poolInfo[5],
       apy, symbol0:tokens[token0], symbol1: tokens[token1]
     }).write()

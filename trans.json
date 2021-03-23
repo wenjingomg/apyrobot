@@ -1,13 +1,10 @@
 {
   "swap": {
-    "24hrAmount":0,
-    "totalAmount": 0,
-    "totalCount":0
+    "totalAmount": 3.9213006718800005,
+    "totalCount": 2
   },
   "liquidity": {
-    "24hrAmount":0,
-    "totalAmount": 0
+    "totalAmount": 10727.146455413904
   },
-  
-  "lastTimeStamp": 1616488986
+  "lastTimeStamp": 1616495027
 }

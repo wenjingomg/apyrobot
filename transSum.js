@@ -158,8 +158,9 @@ const swapTransHandler = async(trans, config) => {
     accumulateHrs(config.liqAccus, transAmount, trans.blocktime, config.lastTimeStamp*1000)
   } else if (methodId == '0x38ed1739' || methodId=='0x5c11d795') { //swapExactTokensForTokens， swapExactTokensForTokensSupportingFeeOnTransferTokens
     const tokenAaddr = parseAddr(getTransAgs(trans.input, 7))
+    const tokenAPrice =await tokenPrice(tokenAaddr)
     if(tokenAPrice > 0) {
-      transAmount =await tokenPrice(tokenAaddr)*hex2int(getTransAgs(trans.input, 1))*2/Math.pow(10, TOKEN_DECIMAL[tokenAaddr])
+      transAmount =tokenAPrice*hex2int(getTransAgs(trans.input, 1))*2/Math.pow(10, TOKEN_DECIMAL[tokenAaddr])
     } else {
       const tokenBaddr = parseAddr(trans.input.substr(trans.input.length-64, 64))
       const tokenBPrice =await tokenPrice(tokenBaddr)
@@ -172,8 +173,9 @@ const swapTransHandler = async(trans, config) => {
     accumulateHrs(config.swapAccus, transAmount, trans.blocktime, config.lastTimeStamp*1000)
   } else if (methodId == '0x8803dbee') { //swapTokensForExactTokens
     const tokenAaddr = parseAddr(getTransAgs(trans.input, 7))
+    const tokenAPrice =await tokenPrice(tokenAaddr)
     if(tokenAPrice > 0) {
-      transAmount =await tokenPrice(tokenAaddr)*hex2int(getTransAgs(trans.input, 2))*2/Math.pow(10, TOKEN_DECIMAL[tokenAaddr])
+      transAmount =tokenAPrice*hex2int(getTransAgs(trans.input, 2))*2/Math.pow(10, TOKEN_DECIMAL[tokenAaddr])
     } else {
       const tokenBaddr = parseAddr(trans.input.substr(trans.input.length-64, 64))
       const tokenBPrice =await tokenPrice(tokenBaddr)
@@ -231,6 +233,13 @@ const queryTrans = async(addr, config, transHandler) => {
   return config
 }
 
+function sum(arr) {
+  var sum = 0;
+    for (var i = 0, len = arr.length; i < len; i++) {
+        sum += arr[i].value
+    }
+}
+
 const fetchSwapTrans =  async() => {
   let config = db.get('swap').value()
   config= await queryTrans(routerOKAddress, config, swapTransHandler)
@@ -238,13 +247,14 @@ const fetchSwapTrans =  async() => {
   let swaptrans = {}
   swaptrans.totalAmount = config.swapTotalAmount
   swaptrans.totalCount = config.swapTransCount
-  swaptrans["24hrAmount"] = config.swapAccus.reduce((prev, next, index, array)=>prev.value + next.value)
+  swaptrans["24hrAmount"] = sum(config.swapAccus)
   transdb.set('swap', swaptrans).write()
 
   let liqTrans = {}
   liqTrans.totalAmount = config.liqTotalAmount
-  liqTrans["24hrAmount"] = config.liqAccus.reduce((prev, next, index, array)=>prev.value + next.value)
+  liqTrans["24hrAmount"] = sum(config.liqAccus)
   transdb.set('liquidity', liqTrans).write()
+  transdb.set('lastTimeStamp', config.lastTimeStamp).write()
 }
 
 

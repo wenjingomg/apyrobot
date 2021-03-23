@@ -66,8 +66,8 @@
         "value": 0
       },
       "h16": {
-        "lt": 0,
-        "value": 0
+        "lt": 1616489158000,
+        "value": 3.9213006718800005
       },
       "h17": {
         "lt": 0,
@@ -98,8 +98,8 @@
         "value": 0
       }
     },
-    "swapTotalAmount": 0,
-    "swapTransCount":0,
+    "swapTotalAmount": 3.9213006718800005,
+    "swapTransCount": 2,
     "liqAccus": {
       "h0": {
         "lt": 0,
@@ -163,11 +163,11 @@
       },
       "h15": {
         "lt": 1616484759000,
-        "value": 4.9999999996
+        "value": 14.9999999988
       },
       "h16": {
-        "lt": 0,
-        "value": 0
+        "lt": 1616489071000,
+        "value": 5.969999999022401e-8
       },
       "h17": {
         "lt": 0,
@@ -198,7 +198,7 @@
         "value": 0
       }
     },
-    "liqTotalAmount": 3609.7654538972,
-    "lastTimeStamp": 1616488986
+    "liqTotalAmount": 10727.146455413904,
+    "lastTimeStamp": 1616495027
   }
 }
