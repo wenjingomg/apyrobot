@@ -235,9 +235,10 @@ const queryTrans = async(addr, config, transHandler) => {
 
 function sum(arr) {
   var sum = 0;
-    for (var i = 0, len = arr.length; i < len; i++) {
-        sum += arr[i].value
-    }
+  for (var key in arr) {
+      sum += arr[key].value
+  }
+  return sum
 }
 
 const fetchSwapTrans =  async() => {
@@ -247,12 +248,12 @@ const fetchSwapTrans =  async() => {
   let swaptrans = {}
   swaptrans.totalAmount = config.swapTotalAmount
   swaptrans.totalCount = config.swapTransCount
-  swaptrans["24hrAmount"] = sum(config.swapAccus)
+  swaptrans.lstDayAmount = sum(config.swapAccus)
   transdb.set('swap', swaptrans).write()
 
   let liqTrans = {}
   liqTrans.totalAmount = config.liqTotalAmount
-  liqTrans["24hrAmount"] = sum(config.liqAccus)
+  liqTrans.lstDayAmount = sum(config.liqAccus)
   transdb.set('liquidity', liqTrans).write()
   transdb.set('lastTimeStamp', config.lastTimeStamp).write()
 }

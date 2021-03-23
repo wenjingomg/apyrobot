@@ -1,10 +1,12 @@
 {
   "swap": {
     "totalAmount": 3.9213006718800005,
-    "totalCount": 2
+    "totalCount": 2,
+    "lstDayAmount": 3.9213006718800005
   },
   "liquidity": {
-    "totalAmount": 10727.146455413904
+    "totalAmount": 10727.146455413904,
+    "lstDayAmount": 15.0000000585
   },
-  "lastTimeStamp": 1616495027
+  "lastTimeStamp": 1616496464
 }
