@@ -217,3 +217,5 @@ const fetchSwapTrans =  async() => {
   db.set('swap', config).write();
 }
 
+fetchSwapTrans()
+
