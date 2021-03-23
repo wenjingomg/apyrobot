@@ -238,11 +238,13 @@ const fetchSwapTrans =  async() => {
   let swaptrans = {}
   swaptrans.totalAmount = config.swapTotalAmount
   swaptrans.totalCount = config.swapTransCount
-  swaptrans["24hrAmount"] = config.swapAccus.array.forEach(element => {
-    
-  });
-  transdb.get('swap')
+  swaptrans["24hrAmount"] = config.swapAccus.reduce((prev, next, index, array)=>prev.value + next.value)
+  transdb.set('swap', swaptrans).write()
 
+  let liqTrans = {}
+  liqTrans.totalAmount = config.liqTotalAmount
+  liqTrans["24hrAmount"] = config.liqAccus.reduce((prev, next, index, array)=>prev.value + next.value)
+  transdb.set('liquidity', liqTrans).write()
 }
 
 

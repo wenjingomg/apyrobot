@@ -1,0 +1,13 @@
+{
+  "swap": {
+    "24hrAmount":0,
+    "totalAmount": 0,
+    "totalCount":0
+  },
+  "liquidity": {
+    "24hrAmount":0,
+    "totalAmount": 0
+  },
+  
+  "lastTimeStamp": 1616488986
+}

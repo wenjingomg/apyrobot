@@ -1,5 +1,5 @@
-// const hecoAddress = 'http://127.0.0.1:8545'
-const hecoAddress = 'https://exchaintest.okexcn.com'
+const hecoAddress = 'http://127.0.0.1:8545'
+// const hecoAddress = 'https://exchaintest.okexcn.com'
 
 // 类型, 池子， 锁仓/交易额, 日化
 const coins = [
@@ -257,19 +257,6 @@ const axios = require('axios')
 const API_URL = 'https://api.mdex.com'
 const moment = require('moment'); // require
 
-const getApy = async() => {
-  const list = await axios.get(`${API_URL}/pool/list`)
-  const apys = await axios.get(`${API_URL}/pool/apys`)
-  if(list.data.code == 0 && apys.data.code == 0) {
-    db.set('minging', []).write()
-    list.data.result.forEach(val => {
-      db.get('minging').push({...val, apy: apys.data.result[val.pool_id], symbol0: tokens[val.token0], symbol1: tokens[val.token1]}).write()
-    })
-    const time = new Date().getTime()
-    db.set('time', moment(time).utcOffset(8).format('YYYY-MM-DD HH:mm')).write()
-  }
-}
-getApy()
 
 const mingingAbi = require('./abi/miningpool.json')
 const MINING_REWARD_PER_BLOCK = 27.3 //TODO
