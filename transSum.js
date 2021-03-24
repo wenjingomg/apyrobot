@@ -8,14 +8,17 @@ const POOL_URL = 'http://54.162.86.58:3000/pool.json'
 const oracleAddress = '0x2619a22B1e399c473cC9A3C02FcEC826679F8D00'
 const usdtAddress = '0xe579156f9dEcc4134B5E3A30a24Ac46BB8B01281'
 const chefAddress = '0x1D256cFE65cBd73dF6a9bE499a4b3486a31D807E'
-const mdxAddress = '0xE5e399B4D0b721bD0B616E076e07E4416B78AA3E'
+const XT_ADDRESS = '0xE5e399B4D0b721bD0B616E076e07E4416B78AA3E'
 const wethAddress = '0x70c1c53E991F31981d592C2d865383AC0d212225'
-const routerAddress = '0x92eA108F89a7c7bC1Fc9F3efC8c21Ac6020153Ae'
+// const routerAddress = '0x92eA108F89a7c7bC1Fc9F3efC8c21Ac6020153Ae'
 const routerOKAddress = 'okexchain1jt4ppruf5lrmc87f70hu3ss6ccpqz5awps4m3g'
 const farmAddres = '0x1d256cfe65cbd73df6a9be499a4b3486a31d807e'
 const farmOkAddress = 'okexchain1r5jkeln9e0tnma4fheye5je5s633mqr7p267k5'
+const tradeMingingAddress = '0xe5B876BDbfAf8e4E317cEE76889b03eb60a05E99'
+const tradeMingingOKaddress = 'okexchain1uku8d0dl478yuvtuaemg3xcrads2qh5eq0ukpa'
 const USDT_DECIMAL = 10
 const TIME_ZONG_OFFSET = 8
+const maxXTSupply = 100000000 * 1e18;
 
 const web3 = require('web3')
 const low = require('lowdb')
@@ -29,7 +32,7 @@ const transdb = low(transadapter)
 const erc20Abi = require('./abi/erc20.json')
 const oracleAbi = require('./abi/oracle.json')
 const chefAbi = require('./abi/masterchef.json')
-const pairAbi = require('./abi/pair.json')
+const xtTokenAbi = require('./abi/XTToken.json')
 
 // contract
 const provider = new web3(hecoAddress)
@@ -72,7 +75,11 @@ const axios = require('axios')
 // https://www.oklink.com/api/explorer/v1/okexchain_test/addresses/0x92eA108F89a7c7bC1Fc9F3efC8c21Ac6020153Ae/transactions/condition?t=1616233048813&limit=10&offset=0'
 const doQueryTrans = async(addr, start, end,limit, offset) => {
   const timestamp = new Date().getTime()
-  const list = await axios.get(`${TRANS_API}/${addr}/transactions/condition?t=${timestamp}&limit=${limit}&offset=${offset}&txType=contractCall&start=${start}&end=${end}`)
+  let url = `${TRANS_API}/${addr}/transactions/condition?t=${timestamp}&limit=${limit}&offset=${offset}&txType=contractCall&start=${start}&end=${end}`
+  if(addr==tradeMingingOKaddress) {
+    url = `${TRANS_API}/${addr}/transfers/condition?t=${timestamp}&limit=${limit}&offset=${offset}&txType=contractCall&start=${start}&end=${end}&from=${tradeMingingAddress.toLowerCase()}&tokenType=OIP20`
+  }
+  const list = await axios.get(url)
   if (list.data.code != '0') {
     throw new Error("quer trans error:" + list.msg)
   }
@@ -215,7 +222,7 @@ const swapTransHandler = async(trans, config) => {
 const parseTransRsp = async(queryRsp, config, transHandler) => {
   let maxHeight = 0
   for(const trans of queryRsp.hits) {
-    if(trans.blocktime > config.lastTimeStamp*1000 && trans.status == 'SUCCESS') { 
+    if(trans.blocktime > config.lastTimeStamp*1000 && (trans.status == 'SUCCESS' ||trans.symbol=='XT')) { 
       config = await transHandler(trans, config)
     }
   } 
@@ -263,7 +270,7 @@ const fetchSwapTrans =  async() => {
 }
 
 
-// fetchSwapTrans()
+fetchSwapTrans()
 
 let pools = {}
 
@@ -310,9 +317,49 @@ const fetchFarmTrans =async() => {
   transdb.set('lastTimeStamp', config.lastTimeStamp).write()
 }
 
+const tradeMingingTransHandler = async(trans, config) => {
+
+  const xtPrice =await tokenPrice(XT_ADDRESS)
+  const transAmount = trans.value*xtPrice
+  config.tradeTotalAmount += transAmount
+  accumulateHrs(config.tradeAccus, transAmount, trans.blocktime, config.lastTimeStamp*1000)
+
+  return config
+}
+const fetchTradeMingingTrans =async() => {
+  let config = db.get('trade').value()
+  config= await queryTrans(tradeMingingOKaddress, config, tradeMingingTransHandler)
+  db.set('trade', config).write()
+  let tradetrans = {}
+  tradetrans.totalAmount = config.tradeTotalAmount
+  tradetrans.lstDayAmount = sum(config.tradeAccus)
+  transdb.set('tradeMing', tradetrans).write()
+  transdb.set('lastTimeStamp', config.lastTimeStamp).write()
+}
+
+const fetchOthers = async () => {
+  const lpsAmout = pools.lps.reduce((prev, current)=> {return {totalUsdtValue: prev.totalUsdtValue +current.totalUsdtValue}})
+  const singleAmout = pools.single.reduce((prev, current)=> {return {totalUsdtValue: prev.totalUsdtValue +current.totalUsdtValue}})
+  transdb.set('poolTvl', singleAmout.totalUsdtValue+lpsAmout.totalUsdtValue).write()
+  
+  const xtPrice =await tokenPrice(XT_ADDRESS)
+  transdb.set('xtPrice', xtPrice).write()
+
+  const xtContract = new provider.eth.Contract(xtTokenAbi, XT_ADDRESS)
+  const totalSupply = await xtContract.methods.totalSupply().call()
+  transdb.set('deflationRate', totalSupply/maxXTSupply*100).write()
+
+  const swapOutput = await xtContract.methods.minterInfo(tradeMingingAddress).call()
+  const farmOutput = await xtContract.methods.minterInfo(farmAddres).call()
+
+  transdb.set('mingingOutput',(parseInt(swapOutput.mintSupply)+parseInt(farmOutput.mintSupply))/Math.pow(10, 18)).write()
+}
+
 axios.get(POOL_URL).then(resp => {
   pools = resp.data
-  fetchFarmTrans()
+  // fetchFarmTrans()
+  // fetchTradeMingingTrans()
+  fetchOthers()
 })
 
 
