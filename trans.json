@@ -1,8 +1,8 @@
 {
   "poolTvl": 2354.738112464528,
-  "xtPrice": 9.7850853026,
-  "deflationRate": 1.036262275,
-  "mingingOutput": 36262.275,
+  "xtPrice": 9.780752954,
+  "deflationRate": 1.0459920249999999,
+  "mingingOutput": 45992.025,
   "swap": {
     "totalAmount": 3.9213006718800005,
     "totalCount": 2,
@@ -21,5 +21,5 @@
     "totalAmount": 283511.37142708735,
     "lstDayAmount": 283511.37142708735
   },
-  "lastTimeStamp": 1616577849
+  "lastTimeStamp": 1616579999
 }

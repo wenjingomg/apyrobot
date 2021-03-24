@@ -199,7 +199,7 @@
       }
     },
     "liqTotalAmount": 10754.939311501272,
-    "lastTimeStamp": 1616577849
+    "lastTimeStamp": 1616579999
   },
   "farm": {
     "farmAccus": {
@@ -302,7 +302,7 @@
     },
     "farmTotalAmount": 9444.402671254787,
     "depositTotalCount": 13,
-    "lastTimeStamp": 1616557139
+    "lastTimeStamp": 1616579999
   },
   "trade": {
     "tradeAccus": {
@@ -404,6 +404,6 @@
       }
     },
     "tradeTotalAmount": 283511.37142708735,
-    "lastTimeStamp": 1616572289
+    "lastTimeStamp": 1616579999
   }
 }

@@ -357,8 +357,8 @@ const fetchOthers = async () => {
 
 axios.get(POOL_URL).then(resp => {
   pools = resp.data
-  // fetchFarmTrans()
-  // fetchTradeMingingTrans()
+  fetchFarmTrans()
+  fetchTradeMingingTrans()
   fetchOthers()
 })
 

@@ -144,8 +144,8 @@ const tokens = {
 }
 
 //
-const BLOCKS_PER_YEAR = 10512000 //TODO
-const SUSHI_PER_BLOCK = 27.3  //TODO
+const BLOCKS_PER_YEAR = 8808938 //TODO
+const SUSHI_PER_BLOCK = 1.5  //TODO
 
 const web3 = require('web3')
 const low = require('lowdb')
@@ -246,7 +246,7 @@ const getCoinsInfo = async() => {
     } else {
       res = await calculateCoin(coin.lpAddresses, coin.symbol, coin.pid)
     }
-    const apy = mdxPrice/1e+18*SUSHI_PER_BLOCK*BLOCKS_PER_YEAR*res.poolWeight/res.totalUsdtValue*100
+    const apy = mdxPrice/Math.pow(10, USDT_DECIMAL)*SUSHI_PER_BLOCK*BLOCKS_PER_YEAR*res.poolWeight/res.totalUsdtValue*100
     if(coin.islp) {
       db.get('lps').push({...res, symbol: coin.symbol, apy, lpAddresses:coin.lpAddresses, pid:coin.pid}).write()
     } else {
@@ -263,7 +263,7 @@ const moment = require('moment'); // require
 
 
 const mingingAbi = require('./abi/miningpool.json')
-const MINING_REWARD_PER_BLOCK = 27.3 //TODO
+const MINING_REWARD_PER_BLOCK = 1.5 //TODO
 const getMiningPoolInfo = async() => {
   const mdxPrice = await orcalContract.methods.consult(mdxAddress, String(Math.pow(10, 18)), usdtAddress).call()
   const miningPoolContract = new provider.eth.Contract(mingingAbi, mingingPoolAddress)
