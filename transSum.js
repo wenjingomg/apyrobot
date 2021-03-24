@@ -91,7 +91,7 @@ const tokenPrice = async(address) => {
   const decimal = await tokenContract.methods.decimals().call()
   TOKEN_DECIMAL[address] = decimal
   let price = 0
-  if (address == usdtAddress) {
+  if (address.toLowerCase()  == usdtAddress.toLowerCase()) {
     price = 1;
   } else {
     try {
@@ -208,7 +208,7 @@ const swapTransHandler = async(trans, config) => {
   } else {
     console.warn(`unknow methodId : ${methodId} transhash ${trans.hash}`)
   }
-  return config;
+  return config
 }
 
 
@@ -263,10 +263,18 @@ const fetchSwapTrans =  async() => {
 }
 
 
-fetchSwapTrans()
+// fetchSwapTrans()
 
-const axios = require('axios')
-const pools = await axios.get(POOL_URL)
+let pools = {}
+
+const filterPool = (pools, pid) => {
+  for(const pool of pools) {
+    if(pool.pid==pid) {
+      return pool
+    }
+  }
+  return 'undefined'
+}
 
 const farmTransHandler = async(trans, config) => {
   const methodId = getTransAgs(trans.input, 0)
@@ -274,11 +282,11 @@ const farmTransHandler = async(trans, config) => {
     const pid = hex2int(getTransAgs(trans.input, 1))
     const amount = hex2int(getTransAgs(trans.input, 2))
     let transAmount = 0
-    let pool = pools.lps.find((value) => value.pid == pid)
-    if(pool) {
+    let pool = filterPool(pools.lps, pid)
+    if(pool != 'undefined') {
       transAmount = pool.lpPrice * amount/Math.pow(10, 18)
     } else {
-      pool = pools.single.find((value) => value.pid == pid)
+      pool = filterPool(pools.single, pid)
       transAmount = pool.tokenPriceInUsdt * amount/Math.pow(10, decimal)
     }
     config.farmTotalAmount += transAmount
@@ -287,6 +295,7 @@ const farmTransHandler = async(trans, config) => {
     }
     accumulateHrs(config.farmAccus, transAmount, trans.blocktime, config.lastTimeStamp*1000)
   }
+  return config
 }
 
 const fetchFarmTrans =async() => {
@@ -301,7 +310,10 @@ const fetchFarmTrans =async() => {
   transdb.set('lastTimeStamp', config.lastTimeStamp).write()
 }
 
-fetchFarmTrans()
+axios.get(POOL_URL).then(resp => {
+  pools = resp.data
+  fetchFarmTrans()
+})
 
 
 
