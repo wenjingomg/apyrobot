@@ -1,4 +1,8 @@
 {
+  "poolTvl":0,
+  "xtPrice":0,
+  "deflationRate":0,
+  "mingingOutput":0,
   "swap": {
     "totalAmount": 3.9213006718800005,
     "totalCount": 2,
@@ -7,6 +11,15 @@
   "liquidity": {
     "totalAmount": 10727.146455413904,
     "lstDayAmount": 15.0000000585
+  },
+  "farm":{
+    "totalAmount": 0,
+    "lstDayAmount": 0,
+    "depositCount":0
+  },
+  "tradeMing":{
+    "totalAmount": 0,
+    "lstDayAmount": 0
   },
   "lastTimeStamp": 1616496464
 }

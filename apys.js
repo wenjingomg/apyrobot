@@ -180,8 +180,9 @@ const calculateCoin = async(lpAddresses, tokenSymbol, pid) => {
   if(tokenSymbol == 'USDT') {
     return {
       totalUsdtValue: totalValue/Math.pow(10, decimal),
-      tokenPriceInWeth: 1,
-      poolWeight: await getPoolWeight(pid)
+      tokenPriceInUsdt: 1,
+      poolWeight: await getPoolWeight(pid),
+      decimal
     }
   } else {
     let price = 0
@@ -192,7 +193,8 @@ const calculateCoin = async(lpAddresses, tokenSymbol, pid) => {
     return {
       totalUsdtValue: totalValue/Math.pow(10, decimal)*price/Math.pow(10, USDT_DECIMAL),
       tokenPriceInUsdt: price/Math.pow(10, USDT_DECIMAL),
-      poolWeight: await getPoolWeight(pid)
+      poolWeight: await getPoolWeight(pid),
+      decimal
     }
   }
 }
@@ -257,7 +259,6 @@ getCoinsInfo()
 
 //
 const axios = require('axios')
-const API_URL = 'https://api.mdex.com'
 const moment = require('moment'); // require
 
 

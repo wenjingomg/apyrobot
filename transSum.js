@@ -2,6 +2,7 @@ const hecoAddress = 'https://exchaintest.okexcn.com'
 // const hecoAddress = 'http://54.162.86.58:3100'
 
 const TRANS_API =  'https://www.oklink.com/api/explorer/v1/okexchain_test/addresses'
+const POOL_URL = 'http://54.162.86.58:3000/pool.json'
 
 //address
 const oracleAddress = '0x2619a22B1e399c473cC9A3C02FcEC826679F8D00'
@@ -11,6 +12,8 @@ const mdxAddress = '0xE5e399B4D0b721bD0B616E076e07E4416B78AA3E'
 const wethAddress = '0x70c1c53E991F31981d592C2d865383AC0d212225'
 const routerAddress = '0x92eA108F89a7c7bC1Fc9F3efC8c21Ac6020153Ae'
 const routerOKAddress = 'okexchain1jt4ppruf5lrmc87f70hu3ss6ccpqz5awps4m3g'
+const farmAddres = '0x1d256cfe65cbd73df6a9be499a4b3486a31d807e'
+const farmOkAddress = 'okexchain1r5jkeln9e0tnma4fheye5je5s633mqr7p267k5'
 const USDT_DECIMAL = 10
 const TIME_ZONG_OFFSET = 8
 
@@ -208,6 +211,7 @@ const swapTransHandler = async(trans, config) => {
   return config;
 }
 
+
 const parseTransRsp = async(queryRsp, config, transHandler) => {
   let maxHeight = 0
   for(const trans of queryRsp.hits) {
@@ -260,4 +264,44 @@ const fetchSwapTrans =  async() => {
 
 
 fetchSwapTrans()
+
+const axios = require('axios')
+const pools = await axios.get(POOL_URL)
+
+const farmTransHandler = async(trans, config) => {
+  const methodId = getTransAgs(trans.input, 0)
+  if(methodId =='0xe2bbb158' || methodId=='0x441a3e70') {// deposit, withdraw
+    const pid = hex2int(getTransAgs(trans.input, 1))
+    const amount = hex2int(getTransAgs(trans.input, 2))
+    let transAmount = 0
+    let pool = pools.lps.find((value) => value.pid == pid)
+    if(pool) {
+      transAmount = pool.lpPrice * amount/Math.pow(10, 18)
+    } else {
+      pool = pools.single.find((value) => value.pid == pid)
+      transAmount = pool.tokenPriceInUsdt * amount/Math.pow(10, decimal)
+    }
+    config.farmTotalAmount += transAmount
+    if(methodId =='0xe2bbb158') {
+     config.depositTotalCount ++
+    }
+    accumulateHrs(config.farmAccus, transAmount, trans.blocktime, config.lastTimeStamp*1000)
+  }
+}
+
+const fetchFarmTrans =async() => {
+  let config = db.get('farm').value()
+  config= await queryTrans(farmOkAddress, config, farmTransHandler)
+  db.set('farm', config).write()
+  let farmtrans = {}
+  farmtrans.totalAmount = config.farmTotalAmount
+  farmtrans.depositCount = config.depositTotalCount
+  farmtrans.lstDayAmount = sum(config.farmAccus)
+  transdb.set('farm', farmtrans).write()
+  transdb.set('lastTimeStamp', config.lastTimeStamp).write()
+}
+
+fetchFarmTrans()
+
+
 
