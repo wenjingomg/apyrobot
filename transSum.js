@@ -147,7 +147,7 @@ const swapTransHandler = async(trans, config) => {
   //-swapExactTokensForTokensSupportingFeeOnTransferTokens --0x5c11d795
   //-swapExactETHForTokensSupportingFeeOnTransferTokens -- 0xb6f9de95
   //-swapExactTokensForETHSupportingFeeOnTransferTokens -- 0x791ac947
-  if(methodId == '0xf305d719' || methodId == '0x02751cec') { //addLiquidityETH, removeLiquidityETH
+  if(methodId == '0xf305d719' || methodId == '0x02751cec' || methodId == '0xded9382a') { //addLiquidityETH, removeLiquidityETH，removeLiquidityETHWithPermit
     const ethCount = hex2int(getTransAgs(trans.input, 4))/Math.pow(10, 18)
     transAmount = await tokenPrice(wethAddress)*ethCount*2
     config.liqTotalAmount += transAmount
@@ -294,7 +294,7 @@ const farmTransHandler = async(trans, config) => {
       transAmount = pool.lpPrice * amount/Math.pow(10, 18)
     } else {
       pool = filterPool(pools.single, pid)
-      transAmount = pool.tokenPriceInUsdt * amount/Math.pow(10, decimal)
+      transAmount = pool.tokenPriceInUsdt * amount/Math.pow(10, pool.decimal)
     }
     config.farmTotalAmount += transAmount
     if(methodId =='0xe2bbb158') {

@@ -4,13 +4,13 @@
   "deflationRate": 1.0459920249999999,
   "mingingOutput": 45992.025,
   "swap": {
-    "totalAmount": 3.9213006718800005,
-    "totalCount": 2,
-    "lstDayAmount": 3.9213006718800005
+    "totalAmount": 1631.9154534236802,
+    "totalCount": 6,
+    "lstDayAmount": 1631.91545342368
   },
   "liquidity": {
-    "totalAmount": 10754.939311501272,
-    "lstDayAmount": 42.79285614586864
+    "totalAmount": 258239.59973153705,
+    "lstDayAmount": 247374.28101639368
   },
   "farm": {
     "totalAmount": 9444.402671254787,
@@ -21,5 +21,5 @@
     "totalAmount": 283511.37142708735,
     "lstDayAmount": 283511.37142708735
   },
-  "lastTimeStamp": 1616579999
+  "lastTimeStamp": 1616747192
 }
