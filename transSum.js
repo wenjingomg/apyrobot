@@ -1,5 +1,5 @@
-// const hecoAddress = 'https://exchaintest.okexcn.com'
-const hecoAddress = 'http://127.0.0.1:26659'
+const hecoAddress = 'https://exchaintest.okexcn.com'
+// const hecoAddress = 'http://127.0.0.1:26659'
 
 const TRANS_API =  'https://www.oklink.com/api/explorer/v1/okexchain_test/addresses'
 const POOL_URL = 'http://127.0.0.1:3000/pool.json'
