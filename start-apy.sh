@@ -6,7 +6,7 @@ then
     cp apy.json /home/ubuntu/www/pool.json
     echo apy end
     PID=$(ps -ef|grep apy.js|grep -v grep|awk '{printf $2}')
-    if [ -z "$PID" ]
+    if [ -z "$PID" ] then
       kill -9 $PID
     fi
 else
