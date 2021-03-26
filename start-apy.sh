@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/bash
 PID=$(ps -ef|grep apy.js|grep -v grep|awk '{printf $2}')
 if [ -z "$PID" ]
 then
