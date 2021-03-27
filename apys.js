@@ -172,7 +172,7 @@ const coins = [
     islp: false
   },
   {
-    pid: 25,
+    pid: 24,
     lpAddresses: '0x70c1c53E991F31981d592C2d865383AC0d212225', 
     tokenAddresses: '0x70c1c53E991F31981d592C2d865383AC0d212225', 
     symbol: 'WOKT',
