@@ -3,6 +3,7 @@ const hecoAddress = 'https://exchaintest.okexcn.com'
 
 const TRANS_API =  'https://www.oklink.com/api/explorer/v1/okexchain_test/addresses'
 const POOL_URL = 'http://127.0.0.1:3000/pool.json'
+// const POOL_URL = 'http://54.162.86.58:3000/pool.json'
 
 //address
 const oracleAddress = '0x2619a22B1e399c473cC9A3C02FcEC826679F8D00'
@@ -238,6 +239,7 @@ const queryTrans = async(addr, config, transHandler) => {
   let queryRsp = await doQueryTrans(addr, start, end, limit, offset)
   config = await parseTransRsp(queryRsp, config, transHandler)
   while(queryRsp.total > limit + offset) {
+    offset += limit
     queryRsp = await doQueryTrans(addr, start, end, limit, offset)
     config = await parseTransRsp(queryRsp, config, transHandler)
   }
