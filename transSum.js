@@ -79,6 +79,7 @@ const doQueryTrans = async(addr, start, end,limit, offset) => {
   if(addr==tradeMingingOKaddress) {
     url = `${TRANS_API}/${addr}/transfers/condition?t=${timestamp}&limit=${limit}&offset=${offset}&txType=contractCall&start=${start}&end=${end}&from=${tradeMingingAddress.toLowerCase()}&tokenType=OIP20`
   }
+  console.log(url)
   const list = await axios.get(url)
   if (list.data.code != '0') {
     throw new Error("quer trans error:" + list.msg)
