@@ -317,6 +317,7 @@ const getCoinsInfo = async() => {
       db.get('single').push({...res, symbol: coin.symbol, apy, lpAddresses:coin.lpAddresses, pid:coin.pid}).write()
     }
   }
+  db.set('time', new Date().toLocaleString()).write()  
 }
 getCoinsInfo()
 
@@ -357,6 +358,6 @@ const getMiningPoolInfo = async() => {
     }).write()
   
   }
-  
+  db.set('time', new Date().toLocaleString()).write()  
 }
 getMiningPoolInfo()
