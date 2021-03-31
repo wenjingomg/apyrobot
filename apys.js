@@ -289,13 +289,17 @@ const calculateLp = async(lpAddresses, tokenAddresses, tokenSymbol, pid) => {
   const token0addr = await currentTokenContract.methods.token0().call()
   const token1addr = await currentTokenContract.methods.token1().call()
   const totalUsdtValue= totalAmount*price/Math.pow(10, USDT_DECIMAL)*2
+  const split = tokenSymbol.indexOf('/')
+
   return {
       totalUsdtValue,
       tokenPriceInUsdt: price/Math.pow(10, USDT_DECIMAL),
       lpPrice: totalUsdtValue/totalSupply*Math.pow(10, 18),
       poolWeight,
       token0addr,
-      token1addr
+      token1addr,
+      symbol0: tokenSymbol.substring(0, split),
+      symbol1: tokenSymbol.substring(split+1, tokenSymbol.length)
     }
 }
 
@@ -354,7 +358,7 @@ const getMiningPoolInfo = async() => {
       total_quantity:poolInfo[3]/Math.pow(10, USDT_DECIMAL),
       pool_quantity:poolInfo[4]/Math.pow(10, USDT_DECIMAL),
       alloc_point:poolInfo[5],
-      apy, symbol0:tokens[token0], symbol1: tokens[token1]
+      apy, symbol0:tokens[token0], symbol1: tokens[token1], person_reward:'', person_quantity:''
     }).write()
   
   }
