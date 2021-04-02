@@ -294,7 +294,7 @@ const calculateLp = async(lpAddresses, tokenAddresses, tokenSymbol, pid) => {
   return {
       totalUsdtValue,
       tokenPriceInUsdt: price/Math.pow(10, USDT_DECIMAL),
-      lpPrice: totalUsdtValue/totalSupply*Math.pow(10, 18),
+      lpPrice: tokenAmount/Math.pow(10, decimal)*price/Math.pow(10, USDT_DECIMAL)*2/totalSupply*Math.pow(10, 18),
       poolWeight,
       token0addr,
       token1addr,
