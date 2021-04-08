@@ -84,9 +84,9 @@ const coins = [{
 }, {
   "pid": 13,
   "lpAddresses": "0xE096CB4ea6b8c07bf562bf0CC810BcB94Dd6bceF",
-  "tokenAddresses": "0xE096CB4ea6b8c07bf562bf0CC810BcB94Dd6bceF",
-  "symbol": "OKXT",
-  "isLp": false
+  "tokenAddresses": "0x09973e7e3914EB5BA69C7c025F30ab9446e3e4e0",
+  "symbol": "BTCK/WOKT",
+  "isLp": true
 }, {
   "pid": 14,
   "lpAddresses": "0x09973e7e3914EB5BA69C7c025F30ab9446e3e4e0",

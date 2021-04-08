@@ -24,10 +24,12 @@ const gencoininfo = async () => {
     for(; pid < poolLength; pid ++) {
         console.log(pid)
         const {lpToken} = await chefContract.methods.poolInfo(pid).call()
-        const isLp = pid < 13
+        const isLp = pid < 14
         let symbol = ''
         let tokenAddresses = lpToken
-        if(isLp) {
+        const lpTokenContr =  new provider.eth.Contract(erc20Abi, lpToken)
+        symbol = await lpTokenContr.methods.symbol().call()
+        if(symbol == 'OKXT') {
             const pairContract = new provider.eth.Contract(pairAbi, lpToken)
             const token0 = await pairContract.methods.token0().call()
             const token0Contr =  new provider.eth.Contract(erc20Abi, token0)
@@ -41,10 +43,7 @@ const gencoininfo = async () => {
             } else {
                 tokenAddresses = token0
             }
-        } else {
-            const lpTokenContr =  new provider.eth.Contract(erc20Abi, lpToken)
-            symbol = await lpTokenContr.methods.symbol().call()
-        }
+        } 
         coins.push({pid, lpAddresses:lpToken, tokenAddresses, symbol, isLp})
     }
     console.log(JSON.stringify(coins))
