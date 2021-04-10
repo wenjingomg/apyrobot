@@ -6,17 +6,17 @@ const POOL_URL = 'http://127.0.0.1:3000/pool.json'
 // const POOL_URL = 'http://54.162.86.58:3000/pool.json'
 
 //address
-const oracleAddress = '0x2619a22B1e399c473cC9A3C02FcEC826679F8D00'
+const oracleAddress = '0x26061dDaFC004E8510440E696e44C38Cc3F331ec'
 const usdtAddress = '0xe579156f9dEcc4134B5E3A30a24Ac46BB8B01281'
-const chefAddress = '0x1D256cFE65cBd73dF6a9bE499a4b3486a31D807E'
-const XT_ADDRESS = '0xE5e399B4D0b721bD0B616E076e07E4416B78AA3E'
+const chefAddress = '0x04964cBB5E9410721dCb6bc0503C0B4E1D19ad48'
+const XT_ADDRESS = '0x2698598b98175bB5d20f69063d5CD99514D63819'
 const wethAddress = '0x70c1c53E991F31981d592C2d865383AC0d212225'
 // const routerAddress = '0x92eA108F89a7c7bC1Fc9F3efC8c21Ac6020153Ae'
-const routerOKAddress = 'okexchain1jt4ppruf5lrmc87f70hu3ss6ccpqz5awps4m3g'
-const farmAddres = '0x1d256cfe65cbd73df6a9be499a4b3486a31d807e'
-const farmOkAddress = 'okexchain1r5jkeln9e0tnma4fheye5je5s633mqr7p267k5'
-const tradeMingingAddress = '0xe5B876BDbfAf8e4E317cEE76889b03eb60a05E99'
-const tradeMingingOKaddress = 'okexchain1uku8d0dl478yuvtuaemg3xcrads2qh5eq0ukpa'
+const routerOKAddress = 'okexchain1tza50dp2pc6pfgsjkrl0a5e0vd5czs82xpncrz'
+const farmAddres = '0x04964cBB5E9410721dCb6bc0503C0B4E1D19ad48'
+const farmOkAddress = 'okexchain1qjtyew67jsg8y8wtd0q9q0qtfcw3nt2gazkglg'
+const tradeMingingAddress = '0x8413fc93D1a812A26fb38FD943D10fFA478F0254'
+const tradeMingingOKaddress = 'okexchain1ssfley734qf2yman3lv585g0lfrc7qj5zy7xlx'
 const USDT_DECIMAL = 10
 const TIME_ZONG_OFFSET = 8
 const maxXTSupply = 100000000 * 1e18;
