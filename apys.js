@@ -1,6 +1,6 @@
 // const hecoAddress = 'http://127.0.0.1:26659'
-// const hecoAddress = 'https://exchaintest.okexcn.com'
-const hecoAddress = 'http://52.73.128.127:3100'
+const hecoAddress = 'https://exchaintest.okexcn.com'
+// const hecoAddress = 'http://52.73.128.127:3100'
 
 // 类型, 池子， 锁仓/交易额, 日化
 const coins = [{
