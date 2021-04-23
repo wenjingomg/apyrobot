@@ -11,7 +11,7 @@ const usdtAddress = '0xCB0282FD4A9F4B4Deb1673f760c016A3a8D98866'
 const chefAddress = '0x7e8d5441EB997491eAF4D11CF749ef6E9a272D08'
 const mdxAddress = '0xd580f978c1F6Df02384f439662c7214f83cCcCf1'
 const mingingPoolAddress = "0x7E9A13FceE414a535CdA2E8e55F2082c9d42dc15"
-const USDT_DECIMAL = 10
+const USDT_DECIMAL = 18
 
 const tokens = {
   '0x1f0a6390B1D4cA8c4d89adEAC9Bb13efE017C558': 'WBNB',
