@@ -1,168 +1,23 @@
 // const hecoAddress = 'http://127.0.0.1:26659'
-const hecoAddress = 'https://exchaintest.okexcn.com'
+const hecoAddress = 'https://data-seed-prebsc-1-s1.binance.org:8545'
 // const hecoAddress = 'http://52.73.128.127:3100'
 
 // 类型, 池子， 锁仓/交易额, 日化
-const coins = [{
-  "pid": 0,
-  "lpAddresses": "0xd1c0789E355D867fF133C88c77211A09aB833060",
-  "tokenAddresses": "0x2698598b98175bB5d20f69063d5CD99514D63819",
-  "symbol": "XT/USDT",
-  "isLp": true
-}, {
-  "pid": 1,
-  "lpAddresses": "0x13593B58738B31173a98402aC5077D4286dC9BF1",
-  "tokenAddresses": "0x09973e7e3914EB5BA69C7c025F30ab9446e3e4e0",
-  "symbol": "BTCK/XT",
-  "isLp": true
-}, {
-  "pid": 2,
-  "lpAddresses": "0xdb4AaA77E8b90e95bE2b038febDd02459222F856",
-  "tokenAddresses": "0x2698598b98175bB5d20f69063d5CD99514D63819",
-  "symbol": "XT/OKB",
-  "isLp": true
-}, {
-  "pid": 3,
-  "lpAddresses": "0x3CD27cBBADdCCD7e91C9F71955637eEbBd47B680",
-  "tokenAddresses": "0x2698598b98175bB5d20f69063d5CD99514D63819",
-  "symbol": "XT/ETHK",
-  "isLp": true
-}, {
-  "pid": 4,
-  "lpAddresses": "0x3EFa5b6620775cD9334a29736559f1e198E0E548",
-  "tokenAddresses": "0x2698598b98175bB5d20f69063d5CD99514D63819",
-  "symbol": "XT/WOKT",
-  "isLp": true
-}, {
-  "pid": 5,
-  "lpAddresses": "0x90994EB8aF4A82e2657ACd5e5CA86B378956D357",
-  "tokenAddresses": "0x09973e7e3914EB5BA69C7c025F30ab9446e3e4e0",
-  "symbol": "BTCK/USDT",
-  "isLp": true
-}, {
-  "pid": 6,
-  "lpAddresses": "0x31958B77EB55D23fe18823F15d070137CEbFF4F8",
-  "tokenAddresses": "0xDF950cEcF33E64176ada5dD733E170a56d11478E",
-  "symbol": "ETHK/USDT",
-  "isLp": true
-}, {
-  "pid": 7,
-  "lpAddresses": "0x81f4D6F37edce7737162b411617fb0Aea04Ec73E",
-  "tokenAddresses": "0xDa9d14072Ef2262c64240Da3A93fea2279253611",
-  "symbol": "OKB/USDT",
-  "isLp": true
-}, {
-  "pid": 8,
-  "lpAddresses": "0xDd22102698A574A28AFD80133715e8B81cCE3eC3",
-  "tokenAddresses": "0xDa9d14072Ef2262c64240Da3A93fea2279253611",
-  "symbol": "OKB/ETHK",
-  "isLp": true
-}, {
-  "pid": 9,
-  "lpAddresses": "0x9094493f729b68c1F18F471839920f3228c18399",
-  "tokenAddresses": "0x09973e7e3914EB5BA69C7c025F30ab9446e3e4e0",
-  "symbol": "BTCK/OKB",
-  "isLp": true
-}, {
-  "pid": 10,
-  "lpAddresses": "0xcb686638708DD442c8F8faf6fEEcdF5f6e4eb04C",
-  "tokenAddresses": "0x70c1c53E991F31981d592C2d865383AC0d212225",
-  "symbol": "WOKT/OKB",
-  "isLp": true
-}, {
-  "pid": 11,
-  "lpAddresses": "0x9db50c36ABc32faCc7b66a647E9183d9e503D614",
-  "tokenAddresses": "0x70c1c53E991F31981d592C2d865383AC0d212225",
-  "symbol": "WOKT/USDT",
-  "isLp": true
-}, {
-  "pid": 12,
-  "lpAddresses": "0xC73c9623fFA1DF6a0896d8A3E4aa240ECA15195a",
-  "tokenAddresses": "0x70c1c53E991F31981d592C2d865383AC0d212225",
-  "symbol": "WOKT/ETHK",
-  "isLp": true
-}, {
-  "pid": 13,
-  "lpAddresses": "0xE096CB4ea6b8c07bf562bf0CC810BcB94Dd6bceF",
-  "tokenAddresses": "0x09973e7e3914EB5BA69C7c025F30ab9446e3e4e0",
-  "symbol": "BTCK/WOKT",
-  "isLp": true
-}, {
-  "pid": 14,
-  "lpAddresses": "0x09973e7e3914EB5BA69C7c025F30ab9446e3e4e0",
-  "tokenAddresses": "0x09973e7e3914EB5BA69C7c025F30ab9446e3e4e0",
-  "symbol": "BTCK",
-  "isLp": false
-}, {
-  "pid": 15,
-  "lpAddresses": "0xDa9d14072Ef2262c64240Da3A93fea2279253611",
-  "tokenAddresses": "0xDa9d14072Ef2262c64240Da3A93fea2279253611",
-  "symbol": "OKB",
-  "isLp": false
-}, {
-  "pid": 16,
-  "lpAddresses": "0xDF950cEcF33E64176ada5dD733E170a56d11478E",
-  "tokenAddresses": "0xDF950cEcF33E64176ada5dD733E170a56d11478E",
-  "symbol": "ETHK",
-  "isLp": false
-}, {
-  "pid": 17,
-  "lpAddresses": "0x70c1c53E991F31981d592C2d865383AC0d212225",
-  "tokenAddresses": "0x70c1c53E991F31981d592C2d865383AC0d212225",
-  "symbol": "WOKT",
-  "isLp": false
-}, {
-  "pid": 18,
-  "lpAddresses": "0xe579156f9dEcc4134B5E3A30a24Ac46BB8B01281",
-  "tokenAddresses": "0xe579156f9dEcc4134B5E3A30a24Ac46BB8B01281",
-  "symbol": "USDT",
-  "isLp": false
-}, {
-  "pid": 19,
-  "lpAddresses": "0x3e33590013B24bf21D4cCca3a965eA10e570D5B2",
-  "tokenAddresses": "0x3e33590013B24bf21D4cCca3a965eA10e570D5B2",
-  "symbol": "USDC",
-  "isLp": false
-}, {
-  "pid": 20,
-  "lpAddresses": "0x533367b864D9b9AA59D0DCB6554DF0C89feEF1fF",
-  "tokenAddresses": "0x533367b864D9b9AA59D0DCB6554DF0C89feEF1fF",
-  "symbol": "USDK",
-  "isLp": false
-}, {
-  "pid": 21,
-  "lpAddresses": "0x72F8fa5da80dc6E20E00d02724cf05ebD302C35F",
-  "tokenAddresses": "0x72F8fa5da80dc6E20E00d02724cf05ebD302C35F",
-  "symbol": "DOTK",
-  "isLp": false
-}, {
-  "pid": 22,
-  "lpAddresses": "0xd616388f6533B6f1c31968a305FbEE1727F55850",
-  "tokenAddresses": "0xd616388f6533B6f1c31968a305FbEE1727F55850",
-  "symbol": "LTCK",
-  "isLp": false
-}]
+const coins = [{"pid":0,"lpAddresses":"0x663BEaC263192B29dc1696f745B6BF1e6851d355","tokenAddresses":"0xd580f978c1F6Df02384f439662c7214f83cCcCf1","symbol":"USDT/XT","isLp":true}]
 
 //address
-const oracleAddress = '0x26061dDaFC004E8510440E696e44C38Cc3F331ec'
-const usdtAddress = '0xe579156f9dEcc4134B5E3A30a24Ac46BB8B01281'
-const chefAddress = '0x04964cBB5E9410721dCb6bc0503C0B4E1D19ad48'
-const mdxAddress = '0x2698598b98175bB5d20f69063d5CD99514D63819'
-const mingingPoolAddress = "0x8413fc93D1a812A26fb38FD943D10fFA478F0254"
+const oracleAddress = '0x2A7B9E8cbF325eBFD231d91c9e09AD0fdc9797b4'
+const usdtAddress = '0xCB0282FD4A9F4B4Deb1673f760c016A3a8D98866'
+const chefAddress = '0x7e8d5441EB997491eAF4D11CF749ef6E9a272D08'
+const mdxAddress = '0xd580f978c1F6Df02384f439662c7214f83cCcCf1'
+const mingingPoolAddress = "0x7E9A13FceE414a535CdA2E8e55F2082c9d42dc15"
 const USDT_DECIMAL = 10
 
 const tokens = {
-  '0xDa9d14072Ef2262c64240Da3A93fea2279253611': 'OKB',
-  '0xe579156f9dEcc4134B5E3A30a24Ac46BB8B01281': 'USDT',
-  '0x533367b864D9b9AA59D0DCB6554DF0C89feEF1fF': 'USDK',
-  '0x3e33590013B24bf21D4cCca3a965eA10e570D5B2': 'USDC',
-  '0x09973e7e3914EB5BA69C7c025F30ab9446e3e4e0': 'BTCK',
-  '0xDF950cEcF33E64176ada5dD733E170a56d11478E': 'ETHK',
-  '0x72f8fa5da80dc6e20e00d02724cf05ebd302c35f': 'DOTK',
-  '0xf6a0Dc1fD1d2c0122ab075d7ef93aD79F02CcB93': 'FILK',
-  '0xd616388f6533B6f1c31968a305FbEE1727F55850': 'LTCK',
-  '0x70c1c53E991F31981d592C2d865383AC0d212225': 'WOKT',
-  "0x2698598b98175bB5d20f69063d5CD99514D63819": "XT",
+  '0x1f0a6390B1D4cA8c4d89adEAC9Bb13efE017C558': 'WBNB',
+  '0xCB0282FD4A9F4B4Deb1673f760c016A3a8D98866': 'USDT',
+  '0x09331E3d4FD602212460abe55dfC5b8800364211': 'Multicall',
+  "0xd580f978c1F6Df02384f439662c7214f83cCcCf1": "XT",
   // '0xae3a768f9aB104c69A7CD6041fE16fFa235d1810': 'HFIL',
   // '0x202b4936fE1a82A4965220860aE46d7d3939Bb25': 'AAVE',
   // '0x777850281719d5a96C29812ab72f822E0e09F3Da': 'SNX',

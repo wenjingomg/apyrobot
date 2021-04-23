@@ -1,6 +1,6 @@
 // const hecoAddress = 'https://exchaintest.okexcn.com'
-const hecoAddress ='http://52.73.128.127:3100/'
-const chefAddress = '0x04964cBB5E9410721dCb6bc0503C0B4E1D19ad48'
+const hecoAddress ='https://data-seed-prebsc-1-s1.binance.org:8545'
+const chefAddress = '0x7e8d5441EB997491eAF4D11CF749ef6E9a272D08'
 const web3 = require('web3')
 const provider = new web3(hecoAddress)
 const erc20Abi = require('./abi/erc20.json')
