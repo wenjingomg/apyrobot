@@ -106,8 +106,8 @@ const tokens = {
 
 //
 const BLOCKS_PER_YEAR = 86400*365/3 
-const SUSHI_PER_BLOCK = 2  
-const MINING_REWARD_PER_BLOCK = 2 
+const SUSHI_PER_BLOCK = 1  
+const MINING_REWARD_PER_BLOCK = 1 
 
 
 const web3 = require('web3')
