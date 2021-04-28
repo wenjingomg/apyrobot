@@ -6,11 +6,11 @@
       "poolWeight": 1,
       "token0": "0xCB0282FD4A9F4B4Deb1673f760c016A3a8D98866",
       "token1": "0xd580f978c1F6Df02384f439662c7214f83cCcCf1",
-      "alloc_mdx_amt": 140589,
-      "total_quantity": 0,
-      "pool_quantity": 0,
+      "alloc_mdx_amt": 91950,
+      "total_quantity": 0.09887879064349249,
+      "pool_quantity": 0.09882032266343353,
       "alloc_point": "1000",
-      "apy": null,
+      "apy": 469909444995.74005,
       "symbol0": "USDT",
       "symbol1": "XT",
       "person_reward": "",
@@ -18,21 +18,6 @@
     }
   ],
   "single": [],
-  "lps": [
-    {
-      "totalUsdtValue": 0,
-      "tokenPriceInUsdt": 1737.7597933768,
-      "lpPrice": 10990.557946668547,
-      "poolWeight": 1,
-      "token0addr": "0xCB0282FD4A9F4B4Deb1673f760c016A3a8D98866",
-      "token1addr": "0xd580f978c1F6Df02384f439662c7214f83cCcCf1",
-      "symbol0": "USDT",
-      "symbol1": "XT",
-      "symbol": "USDT/XT",
-      "apy": null,
-      "lpAddresses": "0x663BEaC263192B29dc1696f745B6BF1e6851d355",
-      "pid": 0
-    }
-  ],
-  "time": "2021/4/23 下午5:40:45"
+  "lps": [],
+  "time": "2021/4/28 下午4:57:25"
 }

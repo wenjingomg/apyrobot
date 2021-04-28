@@ -2,9 +2,9 @@
 PID=$(ps -ef|grep apys.js|grep -v grep|awk '{printf $2}')
 if [ -z "$PID" ]
 then
-    cd /home/ubuntu/xswap/apyrobot
+    cd /home/ubuntu/xswap-main/apyrobot
     nodejs apys.js
-    cp apy.json /home/ubuntu/www/pool.json
+    cp apy.json /home/ubuntu/www/main/pool.json
     echo apy end
     sleep 1
     PID=$(ps -ef|grep apys.js|grep -v grep|awk '{printf $2}')
