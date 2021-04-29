@@ -87,6 +87,97 @@ const coins = [
       "tokenAddresses": "0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3",
       "symbol": "DAI",
       "isLp": false
+  },
+  {
+      "pid": 12,
+      "lpAddresses": "0x8f38AD459b3907715b07d17C0F360c04A3500Fdd",
+      "tokenAddresses": "0x40EB68Bc3B7fA9C2D4AE6a0298697641A65a9A31",
+      "symbol": "XT/BTCB",
+      "isLp": true
+  },
+  {
+      "pid": 13,
+      "lpAddresses": "0xD7608C56F30e20B6CC896647AC8819fd24C25911",
+      "tokenAddresses": "0x40EB68Bc3B7fA9C2D4AE6a0298697641A65a9A31",
+      "symbol": "XT/WBNB",
+      "isLp": true
+  },
+  {
+      "pid": 14,
+      "lpAddresses": "0x6C04918435CD3ad7fE8283e5d2117c710d151D3a",
+      "tokenAddresses": "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
+      "symbol": "ETH/XT",
+      "isLp": true
+  },
+  {
+      "pid": 15,
+      "lpAddresses": "0x878C85d289B536Bb7034D57165E24762a331C95e",
+      "tokenAddresses": "0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c",
+      "symbol": "USDT/BTCB",
+      "isLp": true
+  },
+  {
+      "pid": 16,
+      "lpAddresses": "0x72c4e31Cdb6e31A1bd57aef7e95019D3CDdFd44b",
+      "tokenAddresses": "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
+      "symbol": "ETH/USDT",
+      "isLp": true
+  },
+  {
+      "pid": 17,
+      "lpAddresses": "0xC58ac477037f19ef5C45F79f1CA4E61AD977DB5b",
+      "tokenAddresses": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+      "symbol": "USDT/WBNB",
+      "isLp": true
+  },
+  {
+      "pid": 18,
+      "lpAddresses": "0x0DA1FF6aC47CfD221B2461376f24242E48d18696",
+      "tokenAddresses": "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
+      "symbol": "ETH/WBNB",
+      "isLp": true
+  },
+  {
+      "pid": 19,
+      "lpAddresses": "0x2B97F2CbdA96e3a923DF2125233660C86b501D0e",
+      "tokenAddresses": "0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c",
+      "symbol": "BTCB/WBNB",
+      "isLp": true
+  },
+  {
+      "pid": 20,
+      "lpAddresses": "0x9a25aE662054ca0FfB13c9CBE24fACBf036bD9Ae",
+      "tokenAddresses": "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
+      "symbol": "Cake/XT",
+      "isLp": true
+  },
+  {
+      "pid": 21,
+      "lpAddresses": "0xF687F84805Acd651251B9C0d66AdDaF8dc3BA885",
+      "tokenAddresses": "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
+      "symbol": "Cake/WBNB",
+      "isLp": true
+  },
+  {
+      "pid": 22,
+      "lpAddresses": "0x032A56cAE7f0E7b040D2F6bdCB57FF2D335c8795",
+      "tokenAddresses": "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
+      "symbol": "Cake/USDT",
+      "isLp": true
+  },
+  {
+      "pid": 23,
+      "lpAddresses": "0xDA36994AedAe3eC9a945e572f72B92c95C3F40f0",
+      "tokenAddresses": "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
+      "symbol": "Cake/ETH",
+      "isLp": true
+  },
+  {
+      "pid": 24,
+      "lpAddresses": "0x8d03D523E4B1EE89b609dA89Da1F6D7a6142be8c",
+      "tokenAddresses": "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
+      "symbol": "Cake/BTCB",
+      "isLp": true
   }
 ]
 
@@ -101,7 +192,11 @@ const USDT_DECIMAL = 18
 
 const tokens = {
   "0x40EB68Bc3B7fA9C2D4AE6a0298697641A65a9A31": "XT",
-  "0x55d398326f99059fF775485246999027B3197955": "USDT"
+  "0x55d398326f99059fF775485246999027B3197955": "USDT",
+  "0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c": "BTCB",
+  "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c": "WBNB",
+  "0x2170Ed0880ac9A755fd29B2688956BD959F933F8": "ETH",
+  "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82": "Cake"
 }
 
 //
