@@ -140,7 +140,7 @@ const calculateCoin = async(lpAddresses, tokenSymbol, pid) => {
   const tokenContract = new provider.eth.Contract(erc20Abi, lpAddresses)
   const totalValue = await tokenContract.methods.balanceOf(chefAddress).call() 
   const decimal = await tokenContract.methods.decimals().call()
-  if(tokenSymbol == 'USDT' || tokenSymbol == 'USDK' ||  tokenSymbol == 'USDC') {
+  if(tokenSymbol == 'USDT' || tokenSymbol == 'USDK' ||  tokenSymbol == 'USDC' ||  tokenSymbol == 'BUSD' ||  tokenSymbol == 'DAI') {
     return {
       totalUsdtValue: totalValue/Math.pow(10, decimal),
       tokenPriceInUsdt: 1,
