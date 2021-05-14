@@ -1,202 +1,74 @@
 // const hecoAddress = 'http://127.0.0.1:26659'
-const hecoAddress = 'https://bsc-dataseed.binance.org'
+const hecoAddress = 'https://http-mainnet.hoosmartchain.com'
 // const hecoAddress = 'http://52.73.128.127:3100'
 
 // 类型, 池子， 锁仓/交易额, 日化
-const coins = [
-  {
-      "pid": 0,
-      "lpAddresses": "0x55d398326f99059fF775485246999027B3197955",
-      "tokenAddresses": "0x55d398326f99059fF775485246999027B3197955",
-      "symbol": "USDT",
-      "isLp": false
-  },
-  {
-      "pid": 1,
-      "lpAddresses": "0x73d60E2568bA1d2334C9654b8D50C2304c5bcDc7",
-      "tokenAddresses": "0x40EB68Bc3B7fA9C2D4AE6a0298697641A65a9A31",
-      "symbol": "XT/USDT",
-      "isLp": true
-  },
-  {
-      "pid": 2,
-      "lpAddresses": "0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c",
-      "tokenAddresses": "0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c",
-      "symbol": "BTCB",
-      "isLp": false
-  },
-  {
-      "pid": 3,
-      "lpAddresses": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-      "tokenAddresses": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-      "symbol": "WBNB",
-      "isLp": false
-  },
-  {
-      "pid": 4,
-      "lpAddresses": "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
-      "tokenAddresses": "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
-      "symbol": "ETH",
-      "isLp": false
-  },
-  {
-      "pid": 5,
-      "lpAddresses": "0x55d398326f99059fF775485246999027B3197955",
-      "tokenAddresses": "0x55d398326f99059fF775485246999027B3197955",
-      "symbol": "USDT",
-      "isLp": false
-  },
-  {
-      "pid": 6,
-      "lpAddresses": "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
-      "tokenAddresses": "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
-      "symbol": "BUSD",
-      "isLp": false
-  },
-  {
-      "pid": 7,
-      "lpAddresses": "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d",
-      "tokenAddresses": "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d",
-      "symbol": "USDC",
-      "isLp": false
-  },
-  {
-      "pid": 8,
-      "lpAddresses": "0x7083609fCE4d1d8Dc0C979AAb8c869Ea2C873402",
-      "tokenAddresses": "0x7083609fCE4d1d8Dc0C979AAb8c869Ea2C873402",
-      "symbol": "DOT",
-      "isLp": false
-  },
-  {
-      "pid": 9,
-      "lpAddresses": "0x4338665CBB7B2485A8855A139b75D5e34AB0DB94",
-      "tokenAddresses": "0x4338665CBB7B2485A8855A139b75D5e34AB0DB94",
-      "symbol": "LTC",
-      "isLp": false
-  },
-  {
-      "pid": 10,
-      "lpAddresses": "0xbA2aE424d960c26247Dd6c32edC70B295c744C43",
-      "tokenAddresses": "0xbA2aE424d960c26247Dd6c32edC70B295c744C43",
-      "symbol": "DOGE",
-      "isLp": false
-  },
-  {
-      "pid": 11,
-      "lpAddresses": "0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3",
-      "tokenAddresses": "0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3",
-      "symbol": "DAI",
-      "isLp": false
-  },
-  {
-      "pid": 12,
-      "lpAddresses": "0x8f38AD459b3907715b07d17C0F360c04A3500Fdd",
-      "tokenAddresses": "0x40EB68Bc3B7fA9C2D4AE6a0298697641A65a9A31",
-      "symbol": "XT/BTCB",
-      "isLp": true
-  },
-  {
-      "pid": 13,
-      "lpAddresses": "0xD7608C56F30e20B6CC896647AC8819fd24C25911",
-      "tokenAddresses": "0x40EB68Bc3B7fA9C2D4AE6a0298697641A65a9A31",
-      "symbol": "XT/WBNB",
-      "isLp": true
-  },
-  {
-      "pid": 14,
-      "lpAddresses": "0x6C04918435CD3ad7fE8283e5d2117c710d151D3a",
-      "tokenAddresses": "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
-      "symbol": "ETH/XT",
-      "isLp": true
-  },
-  {
-      "pid": 15,
-      "lpAddresses": "0x878C85d289B536Bb7034D57165E24762a331C95e",
-      "tokenAddresses": "0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c",
-      "symbol": "USDT/BTCB",
-      "isLp": true
-  },
-  {
-      "pid": 16,
-      "lpAddresses": "0x72c4e31Cdb6e31A1bd57aef7e95019D3CDdFd44b",
-      "tokenAddresses": "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
-      "symbol": "ETH/USDT",
-      "isLp": true
-  },
-  {
-      "pid": 17,
-      "lpAddresses": "0xC58ac477037f19ef5C45F79f1CA4E61AD977DB5b",
-      "tokenAddresses": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-      "symbol": "USDT/WBNB",
-      "isLp": true
-  },
-  {
-      "pid": 18,
-      "lpAddresses": "0x0DA1FF6aC47CfD221B2461376f24242E48d18696",
-      "tokenAddresses": "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
-      "symbol": "ETH/WBNB",
-      "isLp": true
-  },
-  {
-      "pid": 19,
-      "lpAddresses": "0x2B97F2CbdA96e3a923DF2125233660C86b501D0e",
-      "tokenAddresses": "0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c",
-      "symbol": "BTCB/WBNB",
-      "isLp": true
-  },
-  {
-      "pid": 20,
-      "lpAddresses": "0x9a25aE662054ca0FfB13c9CBE24fACBf036bD9Ae",
-      "tokenAddresses": "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
-      "symbol": "Cake/XT",
-      "isLp": true
-  },
-  {
-      "pid": 21,
-      "lpAddresses": "0xF687F84805Acd651251B9C0d66AdDaF8dc3BA885",
-      "tokenAddresses": "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
-      "symbol": "Cake/WBNB",
-      "isLp": true
-  },
-  {
-      "pid": 22,
-      "lpAddresses": "0x032A56cAE7f0E7b040D2F6bdCB57FF2D335c8795",
-      "tokenAddresses": "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
-      "symbol": "Cake/USDT",
-      "isLp": true
-  },
-  {
-      "pid": 23,
-      "lpAddresses": "0xDA36994AedAe3eC9a945e572f72B92c95C3F40f0",
-      "tokenAddresses": "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
-      "symbol": "Cake/ETH",
-      "isLp": true
-  },
-  {
-      "pid": 24,
-      "lpAddresses": "0x8d03D523E4B1EE89b609dA89Da1F6D7a6142be8c",
-      "tokenAddresses": "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
-      "symbol": "Cake/BTCB",
-      "isLp": true
-  }
-]
+const coins = [{
+	"pid": 0,
+	"lpAddresses": "0x69cEE68Ae3ec433eb7C68B518102686ee409819B",
+	"tokenAddresses": "0x3EFF9D389D13D6352bfB498BCF616EF9b1BEaC87",
+	"symbol": "wHOO/XT",
+	"isLp": true
+}, {
+	"pid": 1,
+	"lpAddresses": "0x6d0Da1be8adCa6d5cCdaDD56E3c8968E6a0bD62E",
+	"tokenAddresses": "0x5086FD78b1456Bde0A4b0e4E921334bb8CE1c6ff",
+	"symbol": "XT/USDT",
+	"isLp": true
+}, {
+	"pid": 2,
+	"lpAddresses": "0xe5aDE94DA74A03d4B7a0D329d925251F04362b4c",
+	"tokenAddresses": "0x5086FD78b1456Bde0A4b0e4E921334bb8CE1c6ff",
+	"symbol": "XT/BTC",
+	"isLp": true
+}, {
+	"pid": 3,
+	"lpAddresses": "0x783d54ebE10f91A5CE42eA5484726190366c5340",
+	"tokenAddresses": "0x5086FD78b1456Bde0A4b0e4E921334bb8CE1c6ff",
+	"symbol": "XT/ETH",
+	"isLp": true
+}, {
+	"pid": 4,
+	"lpAddresses": "0x4aC4e6A1CB54c53F7548DC3D7413dCd369B18543",
+	"tokenAddresses": "0x3EFF9D389D13D6352bfB498BCF616EF9b1BEaC87",
+	"symbol": "wHOO/USDT",
+	"isLp": true
+}, {
+	"pid": 5,
+	"lpAddresses": "0x72E1B0E2bC36FFEE85d75737287B19F413Bfe6C3",
+	"tokenAddresses": "0x3EFF9D389D13D6352bfB498BCF616EF9b1BEaC87",
+	"symbol": "wHOO/ETH",
+	"isLp": true
+}, {
+	"pid": 6,
+	"lpAddresses": "0xb145Dd1a9bA34bd882dea598C5F7202912a2ea8b",
+	"tokenAddresses": "0x3EFF9D389D13D6352bfB498BCF616EF9b1BEaC87",
+	"symbol": "wHOO/BTC",
+	"isLp": true
+}, {
+	"pid": 7,
+	"lpAddresses": "0xaC4C077E093e792919d77e1DE088f6926c66A04A",
+	"tokenAddresses": "0x5086FD78b1456Bde0A4b0e4E921334bb8CE1c6ff",
+	"symbol": "XT/USDC",
+	"isLp": true
+}]
 
 
 //address
 const oracleAddress = '0xd67736d6F5544C0309562F3E857b2e6c15524AfF'
-const usdtAddress = '0x55d398326f99059fF775485246999027B3197955'
-const chefAddress = '0x99F3AaC5502178F8fe1F3F1a3C463E1f3f841a55'
-const mdxAddress = '0x40EB68Bc3B7fA9C2D4AE6a0298697641A65a9A31'
-const mingingPoolAddress = "0xbfA6D5Fb24b3b9C1837bc8C0E6b2a0096CD72c9b"
-const USDT_DECIMAL = 18
+const usdtAddress = '0xD16bAbe52980554520F6Da505dF4d1b124c815a7'
+const chefAddress = '0x456f160FA0eca0204a8bb3891c93e5db6C710492'
+const mdxAddress = '0x5086FD78b1456Bde0A4b0e4E921334bb8CE1c6ff'
+const mingingPoolAddress = "0x382bb67e1D0483e627f4224447C9b8BB67674D04"
+const USDT_DECIMAL = 6
 
 const tokens = {
-  "0x40EB68Bc3B7fA9C2D4AE6a0298697641A65a9A31": "XT",
-  "0x55d398326f99059fF775485246999027B3197955": "USDT",
-  "0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c": "BTCB",
-  "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c": "WBNB",
-  "0x2170Ed0880ac9A755fd29B2688956BD959F933F8": "ETH",
-  "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82": "Cake"
+	"0x3EFF9D389D13D6352bfB498BCF616EF9b1BEaC87": "wHOO",
+	"0x5086FD78b1456Bde0A4b0e4E921334bb8CE1c6ff": "XT",
+	"0xD16bAbe52980554520F6Da505dF4d1b124c815a7": "USDT",
+	"0xAad9654a4df6973A92C1fd3e95281F0B37960CCd": "BTC",
+	"0xA1588dC914e236bB5AE4208Ce3081246f7A00193": "ETH",
+	"0x92a0bD4584c147D1B0e8F9185dB0BDa10B05Ed7e": "USDC"
 }
 
 //
