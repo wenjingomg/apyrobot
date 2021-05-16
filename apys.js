@@ -133,7 +133,7 @@ const getCoinsInfo = async() => {
   }
   db.set('time', new Date().toLocaleString()).write()  
 }
-getCoinsInfo()
+// getCoinsInfo()
 
 
 //
@@ -151,11 +151,12 @@ const getMiningPoolInfo = async() => {
   db.set('minging', []).write()
   for (i =0; i< poolLength; i++) {
     // {token0, token1, xtamount,totalQuantity,quantity, allocPoint} 
-    var poolInfo = await miningPoolContract.methods.getPoolInfo(i).call();
-    const poolWeight = poolInfo[5]/totalAllocPoint
-    const token0 = poolInfo[0]
-    const token1 = poolInfo[1]
-    const apy = mdxPrice*MINING_REWARD_PER_BLOCK*BLOCKS_PER_YEAR*poolWeight/(0.003*poolInfo[4])*100
+    var poolInfo = await miningPoolContract.methods.poolInfo(i).call();
+    const poolWeight = poolInfo.allocPoint/totalAllocPoint
+    let pairContract = new provider.eth.Contract(pairAbi, poolInfo.pair)
+    let token0 = await pairContract.methods.token0().call()
+    let token1 = await pairContract.methods.token1().call()
+    const apy = mdxPrice*MINING_REWARD_PER_BLOCK*BLOCKS_PER_YEAR*poolWeight/(0.003*poolInfo.quantity)*100
 
     db.get('minging').push({
       id:i+1, 
@@ -163,10 +164,10 @@ const getMiningPoolInfo = async() => {
       poolWeight,
       token0, 
       token1, 
-      alloc_mdx_amt:poolInfo[2]/Math.pow(10, 18),
-      total_quantity:poolInfo[3]/Math.pow(10, USDT_DECIMAL),
-      pool_quantity:poolInfo[4]/Math.pow(10, USDT_DECIMAL),
-      alloc_point:poolInfo[5],
+      alloc_mdx_amt:poolInfo.allocMdxAmount/Math.pow(10, 18),
+      total_quantity:poolInfo.totalQuantity/Math.pow(10, USDT_DECIMAL),
+      pool_quantity:poolInfo.quantity/Math.pow(10, USDT_DECIMAL),
+      alloc_point:poolInfo.allocPoint,
       apy, symbol0:tokens[token0], symbol1: tokens[token1], person_reward:'', person_quantity:''
     }).write()
   
