@@ -1,7 +1,7 @@
 // const hecoAddress = 'https://exchaintest.okexcn.com'
 const hecoAddress ='https://http-mainnet.hoosmartchain.com'
-const chefAddress = '0x456f160FA0eca0204a8bb3891c93e5db6C710492'
-const mingingPoolAddress = "0x382bb67e1D0483e627f4224447C9b8BB67674D04"
+const chefAddress = '0x7B9a9f3fAcB02590E9A44F4d3E21584689911bD7'
+const mingingPoolAddress = "0xa944735DFDA74FE3dc94558B6559777e2438358A"
 const web3 = require('web3')
 const provider = new web3(hecoAddress)
 const erc20Abi = require('./abi/erc20.json')

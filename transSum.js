@@ -1,23 +1,23 @@
-const hecoAddress = 'https://exchaintest.okexcn.com'
+const hecoAddress = 'https://http-mainnet.hoosmartchain.com'
 // const hecoAddress = 'http://127.0.0.1:26659'
 
 const TRANS_API =  'https://www.oklink.com/api/explorer/v1/okexchain_test/addresses'
-const POOL_URL = 'http://127.0.0.1:3000/pool.json'
+const POOL_URL = 'http://127.0.0.1:3000/hsc/pool.json'
 // const POOL_URL = 'http://54.162.86.58:3000/pool.json'
 
 //address
-const oracleAddress = '0x26061dDaFC004E8510440E696e44C38Cc3F331ec'
-const usdtAddress = '0xe579156f9dEcc4134B5E3A30a24Ac46BB8B01281'
-const chefAddress = '0x04964cBB5E9410721dCb6bc0503C0B4E1D19ad48'
-const XT_ADDRESS = '0x2698598b98175bB5d20f69063d5CD99514D63819'
-const wethAddress = '0x70c1c53E991F31981d592C2d865383AC0d212225'
+const oracleAddress = '0xd67736d6F5544C0309562F3E857b2e6c15524AfF'
+const usdtAddress = '0xD16bAbe52980554520F6Da505dF4d1b124c815a7'
+const chefAddress = '0x456f160FA0eca0204a8bb3891c93e5db6C710492'
+const XT_ADDRESS = '0x5086FD78b1456Bde0A4b0e4E921334bb8CE1c6ff'
+const wethAddress = '0x3EFF9D389D13D6352bfB498BCF616EF9b1BEaC87'
 // const routerAddress = '0x92eA108F89a7c7bC1Fc9F3efC8c21Ac6020153Ae'
-const routerOKAddress = 'okexchain1tza50dp2pc6pfgsjkrl0a5e0vd5czs82xpncrz'
-const farmAddres = '0x04964cBB5E9410721dCb6bc0503C0B4E1D19ad48'
-const farmOkAddress = 'okexchain1qjtyew67jsg8y8wtd0q9q0qtfcw3nt2gazkglg'
-const tradeMingingAddress = '0x8413fc93D1a812A26fb38FD943D10fFA478F0254'
-const tradeMingingOKaddress = 'okexchain1ssfley734qf2yman3lv585g0lfrc7qj5zy7xlx'
-const USDT_DECIMAL = 10
+const routerOKAddress = ''
+const farmAddres = '0x456f160FA0eca0204a8bb3891c93e5db6C710492'
+const farmOkAddress = ''
+const tradeMingingAddress = '0x382bb67e1D0483e627f4224447C9b8BB67674D04'
+const tradeMingingOKaddress = ''
+const USDT_DECIMAL = 6
 const TIME_ZONG_OFFSET = 8
 const maxXTSupply = 100000000 * 1e18;
 
