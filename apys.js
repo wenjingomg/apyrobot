@@ -133,7 +133,7 @@ const getCoinsInfo = async() => {
   }
   db.set('time', new Date().toLocaleString()).write()  
 }
-// getCoinsInfo()
+getCoinsInfo()
 
 
 //
