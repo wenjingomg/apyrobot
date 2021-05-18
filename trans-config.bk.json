@@ -411,29 +411,3 @@
   }
 }
 
-
-
-// {
-//   "poolTvl": 0,
-//   "xtPrice": 0,
-//   "deflationRate": 0,
-//   "mingingOutput": 0,
-//   "swap": {
-//     "totalAmount": 0,
-//     "totalCount": 0,
-//     "lstDayAmount": 0
-//   },
-//   "liquidity": {
-//     "totalAmount": 0,
-//     "lstDayAmount": 0
-//   },
-//   "farm": {
-//     "totalAmount": 0,
-//     "depositCount": 0,
-//     "lstDayAmount": 0
-//   },
-//   "tradeMing": {
-//     "totalAmount": 0,
-//     "lstDayAmount": 0
-//   }
-// }
