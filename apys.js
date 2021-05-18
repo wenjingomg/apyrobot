@@ -51,7 +51,7 @@ const calculateCoin = async(lpAddresses, tokenSymbol, pid) => {
   const tokenContract = new provider.eth.Contract(erc20Abi, lpAddresses)
   const totalValue = await tokenContract.methods.balanceOf(chefAddress).call() 
   const decimal = await tokenContract.methods.decimals().call()
-  if(tokenSymbol == 'USDT' || tokenSymbol == 'USDK' ||  tokenSymbol == 'USDC' ||  tokenSymbol == 'BUSD' ||  tokenSymbol == 'DAI') {
+  if(tokenSymbol == 'USDT' || tokenSymbol == 'USDK' ||  tokenSymbol == 'USDC' ||  tokenSymbol == 'BUSD' ||  tokenSymbol == 'DAI' || tokenSymbol == 'iUSDT') {
     return {
       totalUsdtValue: totalValue/Math.pow(10, decimal),
       tokenPriceInUsdt: 1,
@@ -83,10 +83,14 @@ const calculateLp = async(lpAddresses, tokenAddresses, tokenSymbol, pid) => {
   console.log('lp stake count:', balance)
   const decimal = await currentLpContract.methods.decimals().call()
   let price = 0
-  try {
-      price = await orcalContract.methods.consult(tokenAddresses, String(Math.pow(10, decimal)), usdtAddress).call()
-  } catch (error) {
-      console.log(tokenSymbol, 'get price', error)
+  if(tokenSymbol == 'USDT' || tokenSymbol == 'USDK' ||  tokenSymbol == 'USDC' ||  tokenSymbol == 'BUSD' ||  tokenSymbol == 'DAI' || tokenSymbol == 'iUSDT') {
+    price = 1
+  } else {
+    try {
+        price = await orcalContract.methods.consult(tokenAddresses, String(Math.pow(10, decimal)), usdtAddress).call()
+    } catch (error) {
+        console.log(tokenSymbol, 'get price', error)
+    }
   }
   //swap pair (BTC)总币数
   const tokenAmount = await currentLpContract.methods.balanceOf(currentTokenContract.options.address).call()
