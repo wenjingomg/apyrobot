@@ -2,6 +2,7 @@ const hecoAddress = 'https://http-mainnet.hoosmartchain.com'
 // const hecoAddress = 'http://127.0.0.1:26659'
 
 const TRANS_API =  'https://www.hscscan.com/v1/transaction/list'
+const TRANS_DETAIL_API = 'https://www.hscscan.com/v1/transaction'
 const POOL_URL = 'http://35.174.61.1:3000/hsc/pool.json'
 // const POOL_URL = 'http://54.162.86.58:3000/pool.json'
 
@@ -327,11 +328,21 @@ const fetchFarmTrans =async() => {
 }
 
 const tradeMingingTransHandler = async(trans, config) => {
-
+  let url = `${TRANS_DETAIL_API}/${trans.Hash}`
+  let transDetail = await axios.get(url)
+  if (transDetail.data.code != '0') {
+    return
+  }
   const xtPrice =await tokenPrice(XT_ADDRESS)
-  const transAmount = trans.value*xtPrice
-  config.tradeTotalAmount += transAmount
-  accumulateHrs(config.tradeAccus, transAmount, trans.Timestamp, config.lastTimeStamp*1000)
+  if (transDetail.data.data.events) {
+    transDetail.data.data.events.forEach(element => {
+      if(element.tokenConstants.indexOf('iXT') > 0) {
+        let transAmount = hex2int(element.data)*xtPrice/Math.pow(10, 18);
+        config.tradeTotalAmount += transAmount
+        accumulateHrs(config.tradeAccus, transAmount, trans.Timestamp, config.lastTimeStamp*1000)
+      }
+    });
+  }
 
   return config
 }
@@ -373,7 +384,7 @@ const fetchOthers = async () => {
 axios.get(POOL_URL).then(resp => {
   pools = resp.data
   fetchFarmTrans()
-  // fetchTradeMingingTrans()
+  fetchTradeMingingTrans()
   fetchOthers()
 })
 
