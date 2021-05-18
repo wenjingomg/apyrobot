@@ -17,9 +17,9 @@ const farmAddres = '0x7B9a9f3fAcB02590E9A44F4d3E21584689911bD7'
 const farmOkAddress = '0x7B9a9f3fAcB02590E9A44F4d3E21584689911bD7'
 const tradeMingingAddress = '0xa944735DFDA74FE3dc94558B6559777e2438358A'
 const tradeMingingOKaddress = '0xa944735DFDA74FE3dc94558B6559777e2438358A'
-const USDT_DECIMAL = 6
+const USDT_DECIMAL = 18
 const TIME_ZONG_OFFSET = 0
-const maxXTSupply = 100000000 * 1e18;
+const maxXTSupply = 14300000 * 1e18;
 
 const web3 = require('web3')
 const low = require('lowdb')
