@@ -1,21 +1,21 @@
 {
-  "poolTvl": 0,
-  "xtPrice": 0,
-  "deflationRate": 0,
+  "poolTvl": 1.1137784586381831,
+  "xtPrice": 11954780154.73299,
+  "deflationRate": 0.286,
   "mingingOutput": 0,
   "swap": {
-    "totalAmount": 6811936442987.334,
-    "totalCount": 1761,
-    "lstDayAmount": 311041804878.8255
+    "totalAmount": 6861770525638.718,
+    "totalCount": 1774,
+    "lstDayAmount": 317897993300.96216
   },
   "liquidity": {
-    "totalAmount": 149151888043269.06,
-    "lstDayAmount": 794825550718.6284
+    "totalAmount": 149194465186741,
+    "lstDayAmount": 778801966073.4595
   },
   "farm": {
-    "totalAmount": 0,
-    "depositCount": 0,
-    "lstDayAmount": 0
+    "totalAmount": 1.228481925864139,
+    "depositCount": 496,
+    "lstDayAmount": 0.03747494889523151
   },
   "tradeMing": {
     "totalAmount": 0,

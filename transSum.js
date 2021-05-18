@@ -2,7 +2,7 @@ const hecoAddress = 'https://http-mainnet.hoosmartchain.com'
 // const hecoAddress = 'http://127.0.0.1:26659'
 
 const TRANS_API =  'https://www.hscscan.com/v1/transaction/list'
-const POOL_URL = 'http://127.0.0.1:3000/hsc/pool.json'
+const POOL_URL = 'http://35.174.61.1:3000/hsc/pool.json'
 // const POOL_URL = 'http://54.162.86.58:3000/pool.json'
 
 //address
@@ -293,7 +293,7 @@ const filterPool = (pools, pid) => {
 }
 
 const farmTransHandler = async(trans, config) => {
-  const methodId = getTransAgs(trans.Input, 0)
+  const methodId = '0x' +  getTransAgs(trans.Input, 0)
   if(methodId =='0xe2bbb158' || methodId=='0x441a3e70') {// deposit, withdraw
     const pid = hex2int(getTransAgs(trans.Input, 1))
     const amount = hex2int(getTransAgs(trans.Input, 2))
@@ -347,8 +347,14 @@ const fetchTradeMingingTrans =async() => {
 }
 
 const fetchOthers = async () => {
-  const lpsAmout = pools.lps.reduce((prev, current)=> {return {totalUsdtValue: prev.totalUsdtValue +current.totalUsdtValue}})
-  const singleAmout = pools.single.reduce((prev, current)=> {return {totalUsdtValue: prev.totalUsdtValue +current.totalUsdtValue}})
+  let lpsAmout = {"totalUsdtValue":0};
+  if(pools.lps.length > 0) {
+    lpsAmout = pools.lps.reduce((prev, current)=> {return {totalUsdtValue: prev.totalUsdtValue +current.totalUsdtValue}})
+  }
+  let singleAmout = {"totalUsdtValue":0};
+  if(pools.single.length > 0) {
+    singleAmout = pools.single.reduce((prev, current)=> {return {totalUsdtValue: prev.totalUsdtValue +current.totalUsdtValue}})
+  }
   transdb.set('poolTvl', singleAmout.totalUsdtValue+lpsAmout.totalUsdtValue).write()
   
   const xtPrice =await tokenPrice(XT_ADDRESS)
