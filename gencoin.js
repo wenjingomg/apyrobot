@@ -11,13 +11,8 @@ const mingingAbi = require('./abi/miningpool.json')
 
 const chefContract = new provider.eth.Contract(chefAbi, chefAddress)
 
-//   {
-    // pid: 0,
-    // lpAddresses: '0x172a378B1aB64333bE2faa54C96476E5389F30AB', // 质押币地址 lpAddresses 统一用来查询余额，lp的话填写lp地址，单币的填币种地址
-    // tokenAddresses: '0xE5e399B4D0b721bD0B616E076e07E4416B78AA3E', // tokenAddresses,单币的话不需要，lp填要获取价格的币种地址
-    // symbol: 'XT/USDT',
-    // islp: true
-//   }
+var receipt = provider.eth.getTransactionReceipt('0xe4a172e00ccbd69cf721aa47159322d1a6202aac3e2e5be1b99dbc2f3c429e38')
+.then(console.log);
 
 const gencoininfo = async () => {
     const poolLength = await chefContract.methods.poolLength().call()

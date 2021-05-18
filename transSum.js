@@ -1,24 +1,24 @@
 const hecoAddress = 'https://http-mainnet.hoosmartchain.com'
 // const hecoAddress = 'http://127.0.0.1:26659'
 
-const TRANS_API =  'https://www.oklink.com/api/explorer/v1/okexchain_test/addresses'
+const TRANS_API =  'https://www.hscscan.com/v1/transaction/list'
 const POOL_URL = 'http://127.0.0.1:3000/hsc/pool.json'
 // const POOL_URL = 'http://54.162.86.58:3000/pool.json'
 
 //address
-const oracleAddress = '0xd67736d6F5544C0309562F3E857b2e6c15524AfF'
-const usdtAddress = '0xD16bAbe52980554520F6Da505dF4d1b124c815a7'
-const chefAddress = '0x456f160FA0eca0204a8bb3891c93e5db6C710492'
-const XT_ADDRESS = '0x5086FD78b1456Bde0A4b0e4E921334bb8CE1c6ff'
-const wethAddress = '0x3EFF9D389D13D6352bfB498BCF616EF9b1BEaC87'
+const oracleAddress = '0xeE32aF7595397684B79a88B02282de81169a58AC'
+const usdtAddress = '0x09e6030537f0582d51C00bdC2d590031d9b1c86c'
+const chefAddress = '0x7B9a9f3fAcB02590E9A44F4d3E21584689911bD7'
+const XT_ADDRESS = '0x80c6A3A493aFd7C52f89E6504C90cE6A639783FC'
+const wethAddress = '0xBB34708E4E1501A88A357C2F7f68edBa9ad9C35E'
 // const routerAddress = '0x92eA108F89a7c7bC1Fc9F3efC8c21Ac6020153Ae'
-const routerOKAddress = ''
-const farmAddres = '0x456f160FA0eca0204a8bb3891c93e5db6C710492'
-const farmOkAddress = ''
-const tradeMingingAddress = '0x382bb67e1D0483e627f4224447C9b8BB67674D04'
-const tradeMingingOKaddress = ''
+const routerOKAddress = '0x233E05c6Eb6be49254d70fE3C72270BA457AEff2'
+const farmAddres = '0x7B9a9f3fAcB02590E9A44F4d3E21584689911bD7'
+const farmOkAddress = '0x7B9a9f3fAcB02590E9A44F4d3E21584689911bD7'
+const tradeMingingAddress = '0xa944735DFDA74FE3dc94558B6559777e2438358A'
+const tradeMingingOKaddress = '0xa944735DFDA74FE3dc94558B6559777e2438358A'
 const USDT_DECIMAL = 6
-const TIME_ZONG_OFFSET = 8
+const TIME_ZONG_OFFSET = 0
 const maxXTSupply = 100000000 * 1e18;
 
 const web3 = require('web3')
@@ -40,11 +40,12 @@ const provider = new web3(hecoAddress)
 const orcalContract = new provider.eth.Contract(oracleAbi, oracleAddress)
 const chefContract = new provider.eth.Contract(chefAbi, chefAddress)
 
+
 const getTransAgs = (input, id) => {
   if(id == 0) {
-    return input.substring(0, 10)
+    return input.substring(0, 8)
   } else {
-    return input.substr(10+(id-1)*64, 64)
+    return input.substr(8+(id-1)*64, 64)
   }
 }
 
@@ -74,18 +75,19 @@ function hex2int(hex) {
 //trans
 const axios = require('axios')
 // https://www.oklink.com/api/explorer/v1/okexchain_test/addresses/0x92eA108F89a7c7bC1Fc9F3efC8c21Ac6020153Ae/transactions/condition?t=1616233048813&limit=10&offset=0'
-const doQueryTrans = async(addr, start, end,limit, offset) => {
+const doQueryTrans = async(addr, start, end,limit, page) => {
   const timestamp = new Date().getTime()
-  let url = `${TRANS_API}/${addr}/transactions/condition?t=${timestamp}&limit=${limit}&offset=${offset}&txType=contractCall&start=${start}&end=${end}`
-  if(addr==tradeMingingOKaddress) {
-    url = `${TRANS_API}/${addr}/transfers/condition?t=${timestamp}&limit=${limit}&offset=${offset}&txType=contractCall&start=${start}&end=${end}&from=${tradeMingingAddress.toLowerCase()}&tokenType=OIP20`
-  }
+  let url = `${TRANS_API}?page=${page}&limit=100&direction=asc&sort=id&address=${addr}`
+  // let url = `${TRANS_API}/${addr}/transactions/condition?t=${timestamp}&limit=${limit}&offset=${offset}&txType=contractCall&start=${start}&end=${end}`
+
   console.log(url)
   const list = await axios.get(url)
   if (list.data.code != '0') {
     throw new Error("quer trans error:" + list.msg)
   }
-  return {hits:list.data.data.hits, total:list.data.data.total} 
+  if(addr==tradeMingingOKaddress) {
+  }
+  return {hits:list.data.data.list, total:list.data.data.total} 
 }
 
 
@@ -115,11 +117,11 @@ const tokenPrice = async(address) => {
 }
 
 const accumulateHrs = (liqAccus, transAmount, transTime, lastTimeStamp) => {
-  transTime = transTime + TIME_ZONG_OFFSET*3600*1000
-  if(new Date().getTime() - transTime < 3600*1000*24) {
-    const transHr = new Date(transTime).getHours()
+  transTime = transTime + TIME_ZONG_OFFSET*3600
+  if(new Date().getTime() - transTime*1000 < 3600*1000*24) {
+    const transHr = new Date(transTime*1000 ).getHours()
     const hrKey = 'h'+transHr
-    if (liqAccus[hrKey].lt - transTime > 3600*1000 || liqAccus[hrKey].lt - transTime < -3600*1000){
+    if (liqAccus[hrKey].lt - transTime*1000  > 3600*1000  || liqAccus[hrKey].lt - transTime*1000  < -3600*1000 ){
       liqAccus[hrKey].lt = transTime
       liqAccus[hrKey].value=0
     }
@@ -133,7 +135,7 @@ const accumulateHrs = (liqAccus, transAmount, transTime, lastTimeStamp) => {
 
 const swapTransHandler = async(trans, config) => {
   
-  const methodId = getTransAgs(trans.input, 0)
+  const methodId = '0x' + getTransAgs(trans.Input, 0)
   let transAmount = 0
   // addLiquidityETH -- 0xf305d719,
   //addLiquidity -- 0xe8e33700, 0x3351733f
@@ -150,69 +152,69 @@ const swapTransHandler = async(trans, config) => {
   //-swapExactETHForTokensSupportingFeeOnTransferTokens -- 0xb6f9de95
   //-swapExactTokensForETHSupportingFeeOnTransferTokens -- 0x791ac947
   if(methodId == '0xf305d719' || methodId == '0x02751cec' || methodId == '0xded9382a') { //addLiquidityETH, removeLiquidityETH，removeLiquidityETHWithPermit
-    const ethCount = hex2int(getTransAgs(trans.input, 4))/Math.pow(10, 18)
+    const ethCount = hex2int(getTransAgs(trans.Input, 4))/Math.pow(10, 18)
     transAmount = await tokenPrice(wethAddress)*ethCount*2
     config.liqTotalAmount += transAmount
-    accumulateHrs(config.liqAccus, transAmount, trans.blocktime, config.lastTimeStamp*1000)
+    accumulateHrs(config.liqAccus, transAmount, trans.Timestamp, config.lastTimeStamp*1000)
   } else if (methodId == '0xe8e33700' || methodId == '0xbaa2abde' || methodId == '0x2195995c') { //addLiquidity, removeLiquidity, removeLiquidityWithPermit
-    const tokenAaddr = parseAddr(getTransAgs(trans.input, 1))
+    const tokenAaddr = parseAddr(getTransAgs(trans.Input, 1))
     const tokenAPrice =await tokenPrice(tokenAaddr)
     if(tokenAPrice > 0) {
-      transAmount = tokenAPrice*hex2int(getTransAgs(trans.input, 3))*2/Math.pow(10, TOKEN_DECIMAL[tokenAaddr])
+      transAmount = tokenAPrice*hex2int(getTransAgs(trans.Input, 3))*2/Math.pow(10, TOKEN_DECIMAL[tokenAaddr])
     } else {
-      const tokenBaddr = parseAddr(getTransAgs(trans.input, 2))
+      const tokenBaddr = parseAddr(getTransAgs(trans.Input, 2))
       const tokenBPrice =await tokenPrice(tokenBaddr)
       if (tokenBPrice > 0) {
-        transAmount = tokenBPrice*hex2int(getTransAgs(trans.input, 4))*2/Math.pow(10, TOKEN_DECIMAL[tokenBaddr])
+        transAmount = tokenBPrice*hex2int(getTransAgs(trans.Input, 4))*2/Math.pow(10, TOKEN_DECIMAL[tokenBaddr])
       }
     }
     config.liqTotalAmount += transAmount
-    accumulateHrs(config.liqAccus, transAmount, trans.blocktime, config.lastTimeStamp*1000)
+    accumulateHrs(config.liqAccus, transAmount, trans.Timestamp, config.lastTimeStamp*1000)
   } else if (methodId == '0x38ed1739' || methodId=='0x5c11d795') { //swapExactTokensForTokens， swapExactTokensForTokensSupportingFeeOnTransferTokens
-    const tokenAaddr = parseAddr(getTransAgs(trans.input, 7))
+    const tokenAaddr = parseAddr(getTransAgs(trans.Input, 7))
     const tokenAPrice =await tokenPrice(tokenAaddr)
     if(tokenAPrice > 0) {
-      transAmount =tokenAPrice*hex2int(getTransAgs(trans.input, 1))*2/Math.pow(10, TOKEN_DECIMAL[tokenAaddr])
+      transAmount =tokenAPrice*hex2int(getTransAgs(trans.Input, 1))*2/Math.pow(10, TOKEN_DECIMAL[tokenAaddr])
     } else {
-      const tokenBaddr = parseAddr(trans.input.substr(trans.input.length-64, 64))
+      const tokenBaddr = parseAddr(trans.Input.substr(trans.Input.length-64, 64))
       const tokenBPrice =await tokenPrice(tokenBaddr)
       if (tokenBPrice > 0) {
-        transAmount = tokenBPrice*hex2int(getTransAgs(trans.input, 2))*2/Math.pow(10, TOKEN_DECIMAL[tokenBaddr])
+        transAmount = tokenBPrice*hex2int(getTransAgs(trans.Input, 2))*2/Math.pow(10, TOKEN_DECIMAL[tokenBaddr])
       }
     }
     config.swapTotalAmount += transAmount
     config.swapTransCount ++
-    accumulateHrs(config.swapAccus, transAmount, trans.blocktime, config.lastTimeStamp*1000)
+    accumulateHrs(config.swapAccus, transAmount, trans.Timestamp, config.lastTimeStamp*1000)
   } else if (methodId == '0x8803dbee') { //swapTokensForExactTokens
-    const tokenAaddr = parseAddr(getTransAgs(trans.input, 7))
+    const tokenAaddr = parseAddr(getTransAgs(trans.Input, 7))
     const tokenAPrice =await tokenPrice(tokenAaddr)
     if(tokenAPrice > 0) {
-      transAmount =tokenAPrice*hex2int(getTransAgs(trans.input, 2))*2/Math.pow(10, TOKEN_DECIMAL[tokenAaddr])
+      transAmount =tokenAPrice*hex2int(getTransAgs(trans.Input, 2))*2/Math.pow(10, TOKEN_DECIMAL[tokenAaddr])
     } else {
-      const tokenBaddr = parseAddr(trans.input.substr(trans.input.length-64, 64))
+      const tokenBaddr = parseAddr(trans.Input.substr(trans.Input.length-64, 64))
       const tokenBPrice =await tokenPrice(tokenBaddr)
       if (tokenBPrice > 0) {
-        transAmount = tokenBPrice*hex2int(getTransAgs(trans.input, 1))*2/Math.pow(10, TOKEN_DECIMAL[tokenBaddr])
+        transAmount = tokenBPrice*hex2int(getTransAgs(trans.Input, 1))*2/Math.pow(10, TOKEN_DECIMAL[tokenBaddr])
       }
     }
     config.swapTotalAmount += transAmount
     config.swapTransCount ++
-    accumulateHrs(config.swapAccus, transAmount, trans.blocktime, config.lastTimeStamp*1000)
+    accumulateHrs(config.swapAccus, transAmount, trans.Timestamp, config.lastTimeStamp*1000)
   } else if (methodId == '0x4a25d94a') { // swapTokensForExactETH
-    transAmount =await tokenPrice(wethAddress)*hex2int(getTransAgs(trans.input, 1))*2/Math.pow(10, 18)
+    transAmount =await tokenPrice(wethAddress)*hex2int(getTransAgs(trans.Input, 1))*2/Math.pow(10, 18)
     config.swapTotalAmount += transAmount
     config.swapTransCount ++
-    accumulateHrs(config.swapAccus, transAmount, trans.blocktime, config.lastTimeStamp*1000)
+    accumulateHrs(config.swapAccus, transAmount, trans.Timestamp, config.lastTimeStamp*1000)
   } else if (methodId == '0x18cbafe5' || methodId =='0x791ac947') { //swapExactTokensForETH,swapExactTokensForETHSupportingFeeOnTransferTokens
-    transAmount =await tokenPrice(wethAddress)*hex2int(getTransAgs(trans.input, 2))*2/Math.pow(10, 18)
+    transAmount =await tokenPrice(wethAddress)*hex2int(getTransAgs(trans.Input, 2))*2/Math.pow(10, 18)
     config.swapTotalAmount += transAmount
-    accumulateHrs(config.swapAccus, transAmount, trans.blocktime, config.lastTimeStamp*1000)
+    accumulateHrs(config.swapAccus, transAmount, trans.Timestamp, config.lastTimeStamp*1000)
   } else if (methodId == '0xfb3bdb41' || methodId=='0x7ff36ab5' || methodId=='0xb6f9de95') { //swapETHForExactTokens,swapExactETHForTokens,swapExactETHForTokensSupportingFeeOnTransferTokens
     const tokenAPrice =await tokenPrice(wethAddress)
     transAmount = tokenAPrice*trans.value*2
     config.swapTotalAmount += transAmount
     config.swapTransCount ++
-    accumulateHrs(config.swapAccus, transAmount, trans.blocktime, config.lastTimeStamp*1000)
+    accumulateHrs(config.swapAccus, transAmount, trans.Timestamp, config.lastTimeStamp*1000)
   } else if (methodId=='0x4f887183' || methodId=='0x60c06040') { //setSwapMining
   } else {
     console.warn(`unknow methodId : ${methodId} transhash ${trans.hash}`)
@@ -224,7 +226,7 @@ const swapTransHandler = async(trans, config) => {
 const parseTransRsp = async(queryRsp, config, transHandler) => {
   let maxHeight = 0
   for(const trans of queryRsp.hits) {
-    if(trans.blocktime > config.lastTimeStamp*1000 && (trans.status == 'SUCCESS' ||trans.symbol=='XT')) { 
+    if(trans.id > config.lastBlockNo && (trans.Status == '1' ||trans.symbol=='XT')) { 
       config = await transHandler(trans, config)
     }
   } 
@@ -232,18 +234,22 @@ const parseTransRsp = async(queryRsp, config, transHandler) => {
 }
 
 const queryTrans = async(addr, config, transHandler) => {
-  const limit = 50
-  let offset = 0
-  const start = config.lastTimeStamp + 1
-  const end = parseInt(new Date().getTime()/1000) - 1
-  let queryRsp = await doQueryTrans(addr, start, end, limit, offset)
+  const limit = 100
+  let page = config.lastPage
+  if (page == 0) {
+    page = 1
+  }
+  // const start = config.lastTimeStamp + 1
+  // const end = parseInt(new Date().getTime()/1000) - 1
+  let queryRsp = await doQueryTrans(addr, null, null, limit, page)
   config = await parseTransRsp(queryRsp, config, transHandler)
-  while(queryRsp.total > limit + offset) {
-    offset += limit
-    queryRsp = await doQueryTrans(addr, start, end, limit, offset)
+  while(queryRsp.total > limit*page) {
+    page ++;
+    queryRsp = await doQueryTrans(addr, null, null, limit, page)
     config = await parseTransRsp(queryRsp, config, transHandler)
   }
-  config.lastTimeStamp =end
+  config.lastPage =page
+  config.lastBlockNo = queryRsp.hits[queryRsp.hits.length-1].id
   return config
 }
 
@@ -287,10 +293,10 @@ const filterPool = (pools, pid) => {
 }
 
 const farmTransHandler = async(trans, config) => {
-  const methodId = getTransAgs(trans.input, 0)
+  const methodId = getTransAgs(trans.Input, 0)
   if(methodId =='0xe2bbb158' || methodId=='0x441a3e70') {// deposit, withdraw
-    const pid = hex2int(getTransAgs(trans.input, 1))
-    const amount = hex2int(getTransAgs(trans.input, 2))
+    const pid = hex2int(getTransAgs(trans.Input, 1))
+    const amount = hex2int(getTransAgs(trans.Input, 2))
     let transAmount = 0
     let pool = filterPool(pools.lps, pid)
     if(pool != 'undefined') {
@@ -303,7 +309,7 @@ const farmTransHandler = async(trans, config) => {
     if(methodId =='0xe2bbb158') {
      config.depositTotalCount ++
     }
-    accumulateHrs(config.farmAccus, transAmount, trans.blocktime, config.lastTimeStamp*1000)
+    accumulateHrs(config.farmAccus, transAmount, trans.Timestamp, config.lastTimeStamp*1000)
   }
   return config
 }
@@ -325,7 +331,7 @@ const tradeMingingTransHandler = async(trans, config) => {
   const xtPrice =await tokenPrice(XT_ADDRESS)
   const transAmount = trans.value*xtPrice
   config.tradeTotalAmount += transAmount
-  accumulateHrs(config.tradeAccus, transAmount, trans.blocktime, config.lastTimeStamp*1000)
+  accumulateHrs(config.tradeAccus, transAmount, trans.Timestamp, config.lastTimeStamp*1000)
 
   return config
 }
@@ -361,7 +367,7 @@ const fetchOthers = async () => {
 axios.get(POOL_URL).then(resp => {
   pools = resp.data
   fetchFarmTrans()
-  fetchTradeMingingTrans()
+  // fetchTradeMingingTrans()
   fetchOthers()
 })
 
