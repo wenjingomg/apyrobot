@@ -11,8 +11,6 @@ const mingingAbi = require('./abi/miningpool.json')
 
 const chefContract = new provider.eth.Contract(chefAbi, chefAddress)
 
-var receipt = provider.eth.getTransactionReceipt('0xe4a172e00ccbd69cf721aa47159322d1a6202aac3e2e5be1b99dbc2f3c429e38')
-.then(console.log);
 
 const gencoininfo = async () => {
     const poolLength = await chefContract.methods.poolLength().call()
@@ -36,7 +34,7 @@ const gencoininfo = async () => {
             let token1Contr =  new provider.eth.Contract(erc20Abi, token1)
             let tk1symbol = await token1Contr.methods.symbol().call()
             symbol = tk0symbol + "/" + tk1symbol
-            if (tk0symbol == 'USDT' || tk0symbol == 'USDC') {
+            if (tk0symbol == 'USDT' || tk0symbol == 'USDC' || tk0symbol == 'iUSDT') {
                 tokenAddresses = token1
             } else {
                 tokenAddresses = token0
